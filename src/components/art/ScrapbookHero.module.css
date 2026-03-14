@@ -1,0 +1,161 @@
+.hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 80px 6vw 60px 6vw;
+  position: relative;
+  background-color: var(--sk-bg);           /* #f2ede3 */
+  overflow: hidden;
+  gap: 2vw;
+}
+
+/* ── LEFT COLUMN ── */
+.leftCol {
+  width: 58%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding-left: 8vw;
+  padding-top: 40px;
+}
+
+/* Caveat handwritten opener */
+.annotationOpener {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  color: var(--sk-ink-mid);                 /* #4a3f2f */
+  line-height: 1.6;
+  margin-bottom: 12px;
+  transform: rotate(-1deg);
+}
+
+
+/* Hero name — Permanent Marker */
+.heroName {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  color: #79010d;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px 0;
+  cursor: pointer;
+}
+
+.nameLine {
+  display: block;
+  font-size: clamp(4rem, 9vw, 8.5rem);
+}
+
+/* Subtitle */
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: var(--sk-ink-mid);
+  letter-spacing: 0.03em;
+}
+
+/* Floating annotation pinned to left */
+.floatNote {
+  font-family: 'Caveat', cursive;
+  font-size: 0.95rem;
+  color: var(--sk-ink-mid);
+  position: absolute;
+  pointer-events: none;
+}
+
+.floatNoteLeft {
+  top: 12px;
+  left: -20px;
+  transform: rotate(-2deg);
+}
+
+/* ── RIGHT COLUMN ── */
+.rightCol {
+  width: 38%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.photoFrame {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(100%) contrast(1.2);    /* B&W treatment */
+  mix-blend-mode: multiply;                 /* blends with paper bg */
+}
+
+.photoFallback {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Placeholder caption shown until real photo is added */
+.photoCaption {
+  font-family: 'Caveat', cursive;
+  font-size: 0.9rem;
+  color: var(--sk-ink-mid);
+  text-align: center;
+  margin-top: 8px;
+  opacity: 0.6;
+}
+
+/* ── BOTTOM CORNER EASTER EGG ANNOTATION ── */
+.eggAnnotation {
+  position: absolute;
+  bottom: 32px;
+  right: 5vw;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: var(--sk-red);
+  border: 1.5px solid var(--sk-red);
+  border-radius: 50%;
+  padding: 6px 16px;
+  transform: rotate(3deg);
+  pointer-events: none;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 100px 6vw 60px;
+    min-height: auto;
+  }
+
+  .leftCol,
+  .rightCol {
+    width: 100%;
+  }
+
+  .rightCol {
+    margin-top: 32px;
+  }
+
+  .photoFrame {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .nameLine {
+    font-size: clamp(3.5rem, 16vw, 5rem);
+  }
+
+  .floatNoteLeft {
+    display: none;       /* too cluttered on mobile */
+  }
+}

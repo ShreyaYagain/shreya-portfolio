@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════ */
+/* GLOBAL RESETS & BASE STYLES                */
+/* ═══════════════════════════════════════════ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+:root {
+  --scrollbar-thumb: #39ff14;
+  --scrollbar-track: #0a0a0a;
+}
+
+.art-mode {
+  --scrollbar-thumb: #79010d;
+  --scrollbar-track: #f0ebe1;
+  /* paper color */
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
+
+/* Selection colors — engineering default */
+::selection {
+  background: rgba(57, 255, 20, 0.3);
+  color: #39ff14;
+}
+
+/* Art side selection */
+.art-mode ::selection {
+  background: rgba(121, 1, 13, 0.2);
+  color: #79010d;
+}
+
+/* Smooth page transitions */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+@keyframes nameWhisper {
+
+  0%,
+  90%,
+  100% {
+    color: rgba(121, 1, 13, 0.35);
+  }
+
+  95% {
+    color: rgba(121, 1, 13, 0.5);
+  }
+}
+
+.hero-name-whisper {
+  animation: nameWhisper 12s infinite;
+}
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(6px); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
+}

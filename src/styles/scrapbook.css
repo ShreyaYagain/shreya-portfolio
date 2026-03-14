@@ -1,0 +1,196 @@
+/* ═══════════════════════════════════════════ */
+/* ART SIDE — EDITORIAL SCRAPBOOK THEME       */
+/* ═══════════════════════════════════════════ */
+
+:root {
+    --sk-bg: #f2ede3;
+    --sk-paper: #e8e2d4;
+    --sk-paper-dark: #d4ccb8;
+    --sk-ink: #1a1208;
+    --sk-ink-mid: #4a3f2f;
+    --sk-red: #79010d;
+    --sk-red-faded: rgba(121, 1, 13, 0.12);
+    --sk-annotation: #2c4a7c;
+    --sk-tape: rgba(121, 1, 13, 0.7);
+}
+
+/* Art side base */
+.art-side {
+    background: var(--sk-bg);
+    color: var(--sk-ink);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Paper grain texture (CSS-only, no image needed) */
+.art-side::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Ruled lines for hero/about sections */
+.ruled-lines {
+    background-image: repeating-linear-gradient(transparent,
+            transparent 27px,
+            rgba(121, 1, 13, 0.06) 27px,
+            rgba(121, 1, 13, 0.06) 28px);
+}
+
+/* Drop cap */
+.drop-cap::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-style: italic;
+    color: var(--sk-red);
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.1em;
+    margin-top: 0.05em;
+}
+
+/* Red tape strip */
+.tape-strip {
+    position: relative;
+}
+
+.tape-strip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    width: 40px;
+    height: 14px;
+    background: var(--sk-tape);
+    transform: rotate(-2deg);
+    z-index: 5;
+}
+
+/* Torn paper edge clip path */
+.torn-edge-bottom {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%,
+            98% 88%, 95% 85%, 92% 90%, 88% 86%, 85% 89%,
+            82% 85%, 78% 90%, 75% 86%, 72% 89%, 68% 85%,
+            65% 88%, 62% 85%, 58% 90%, 55% 86%, 52% 89%,
+            48% 85%, 45% 88%, 42% 85%, 38% 90%, 35% 86%,
+            32% 89%, 28% 85%, 25% 88%, 22% 85%, 18% 90%,
+            15% 86%, 12% 89%, 8% 85%, 5% 88%, 2% 85%, 0% 88%);
+}
+
+/* Ink underline reveal animation */
+@keyframes inkUnderline {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.ink-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.ink-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--sk-red);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ink-underline.visible::after {
+    transform: scaleX(1);
+}
+
+/* Polaroid-style frame */
+.polaroid {
+    background: white;
+    padding: 12px 12px 40px 12px;
+    box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.12);
+    transform: rotate(-2deg);
+}
+
+/* Handwritten annotation style */
+.annotation {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--sk-ink-mid);
+    pointer-events: none;
+    user-select: none;
+}
+
+.annotation-blue {
+    color: var(--sk-annotation);
+}
+
+/* Sticky note */
+.sticky-note {
+    background: #fef3c7;
+    padding: 1rem 1.25rem;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--sk-ink);
+}
+
+/* Sketch card in marquee */
+.sketch-card {
+    background: white;
+    padding: 6px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: zoom-in;
+    position: relative;
+}
+
+.sketch-card:hover {
+    transform: scale(1.08) rotate(0deg) !important;
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+/* Red accent underlines on links */
+.red-underline {
+    text-decoration: none;
+    border-bottom: 2px solid var(--sk-red);
+    padding-bottom: 2px;
+    transition: border-color 0.3s ease;
+}
+
+.red-underline:hover {
+    border-bottom-color: var(--sk-ink);
+}
+
+/* Halftone photo effect */
+.halftone-photo {
+    filter: grayscale(100%) contrast(1.4);
+    mix-blend-mode: multiply;
+}
+
+/* Scrapbook section spacing */
+.scrapbook-section {
+    position: relative;
+    padding: 4rem 2rem;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .scrapbook-section {
+        padding: 2rem 1rem;
+    }
+}
