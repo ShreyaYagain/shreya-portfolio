@@ -11,14 +11,22 @@ export default function LogicGateEgg() {
     return (
         <section className="py-12 px-4 max-w-2xl mx-auto">
             <div className="osc-screen p-6 text-center">
-                <div className="channel-label mb-4">
-                    {'>'} EASTER_EGG: logic_gate_playground
+                <div className="channel-label mb-2" style={{
+                    color: '#39ff14',
+                    textShadow: 'var(--osc-glow-sm)',
+                    fontFamily: "'Share Tech Mono', monospace",
+                    fontSize: '0.85rem',
+                    letterSpacing: '0.08em',
+                }}>
+                    {'>'} EASTER_EGG: LOGIC_GATE_PLAYGROUND
                 </div>
 
                 <p className="mb-6" style={{
                     fontFamily: "'Inconsolata', monospace",
-                    fontSize: '0.8rem',
-                    color: 'rgba(57,255,20,0.4)',
+                    fontSize: '0.85rem',
+                    color: '#39ff14',
+                    textShadow: '0 0 6px rgba(57, 255, 20, 0.4)',
+                    letterSpacing: '0.05em',
                 }}>
                     INPUT: CURIOSITY + HARDWARE → OUTPUT: SHREYA
                 </p>
@@ -34,12 +42,18 @@ export default function LogicGateEgg() {
                             stroke={inputA ? '#39ff14' : 'rgba(57,255,20,0.2)'}
                             strokeWidth="1.5"
                         />
-                        <text x="45" y="60" textAnchor="middle" fill={inputA ? '#39ff14' : 'rgba(57,255,20,0.4)'}
-                            fontSize="14" fontFamily="'Orbitron', sans-serif" fontWeight="bold">
+                        <text x="45" y="60" textAnchor="middle" fill={inputA ? '#39ff14' : 'rgba(57,255,20,0.6)'}
+                            fontSize="14" fontFamily="'Orbitron', sans-serif" fontWeight="bold"
+                            style={{ filter: inputA ? 'drop-shadow(0 0 6px #39ff14)' : 'none' }}>
                             {inputA ? '1' : '0'}
                         </text>
-                        <text x="45" y="82" textAnchor="middle" fill="rgba(57,255,20,0.3)"
-                            fontSize="7" fontFamily="'Share Tech Mono', monospace">
+                        <text x="45" y="83" textAnchor="middle" fill="#39ff14"
+                            fontSize="8" fontFamily="'Share Tech Mono', monospace" letterSpacing="0.08em"
+                            style={{
+                                filter: inputA ? 'drop-shadow(0 0 6px #39ff14)' : 'drop-shadow(0 0 3px rgba(57,255,20,0.6))',
+                                textShadow: inputA ? '0 0 6px #39ff14' : '0 0 4px rgba(57,255,20,0.6)',
+                                transition: 'all 0.3s ease',
+                            }}>
                             CURIOSITY
                         </text>
                     </g>
@@ -54,12 +68,18 @@ export default function LogicGateEgg() {
                             stroke={inputB ? '#39ff14' : 'rgba(57,255,20,0.2)'}
                             strokeWidth="1.5"
                         />
-                        <text x="45" y="140" textAnchor="middle" fill={inputB ? '#39ff14' : 'rgba(57,255,20,0.4)'}
-                            fontSize="14" fontFamily="'Orbitron', sans-serif" fontWeight="bold">
+                        <text x="45" y="140" textAnchor="middle" fill={inputB ? '#39ff14' : 'rgba(57,255,20,0.6)'}
+                            fontSize="14" fontFamily="'Orbitron', sans-serif" fontWeight="bold"
+                            style={{ filter: inputB ? 'drop-shadow(0 0 6px #39ff14)' : 'none' }}>
                             {inputB ? '1' : '0'}
                         </text>
-                        <text x="45" y="162" textAnchor="middle" fill="rgba(57,255,20,0.3)"
-                            fontSize="7" fontFamily="'Share Tech Mono', monospace">
+                        <text x="45" y="163" textAnchor="middle" fill="#39ff14"
+                            fontSize="8" fontFamily="'Share Tech Mono', monospace" letterSpacing="0.08em"
+                            style={{
+                                filter: inputB ? 'drop-shadow(0 0 6px #39ff14)' : 'drop-shadow(0 0 3px rgba(57,255,20,0.6))',
+                                textShadow: inputB ? '0 0 6px #39ff14' : '0 0 4px rgba(57,255,20,0.6)',
+                                transition: 'all 0.3s ease',
+                            }}>
                             HARDWARE
                         </text>
                     </g>

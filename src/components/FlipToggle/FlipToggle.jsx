@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import EngineeringSide from '../engineering/EngineeringSide';
 import ArtSide from '../art/ArtSide';
@@ -10,20 +10,44 @@ export default function FlipToggle() {
     const [isFlipped, setIsFlipped] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showFlash, setShowFlash] = useState(false);
+    const [isTechOverlayActive, setIsTechOverlayActive] = useState(true);
+    const overlayTimeoutRef = useRef(null);
 
     useEffect(() => {
-        if (isFlipped) {
-            document.body.classList.add('art-mode');
-        } else {
-            document.body.classList.remove('art-mode');
-        }
-    }, [isFlipped]);
+        const timer = setTimeout(() => {
+            if (isFlipped) {
+                document.body.classList.add('art-mode');
+            } else {
+                document.body.classList.remove('art-mode');
+            }
+        }, isAnimating ? 300 : 0);
+        return () => clearTimeout(timer);
+    }, [isFlipped, isAnimating]);
+
+    useEffect(() => {
+        return () => {
+            if (overlayTimeoutRef.current) {
+                clearTimeout(overlayTimeoutRef.current);
+            }
+        };
+    }, []);
 
     const handleFlip = () => {
         if (isAnimating) return;
         setIsAnimating(true);
         setShowFlash(true);
         setTimeout(() => setShowFlash(false), 600);
+
+        if (overlayTimeoutRef.current) {
+            clearTimeout(overlayTimeoutRef.current);
+        }
+
+        const targetIsArt = !isFlipped;
+        // Switch overlay active state at the 300ms midpoint of the 3D flip (card edge-on at 90°, flash at peak)
+        overlayTimeoutRef.current = setTimeout(() => {
+            setIsTechOverlayActive(!targetIsArt);
+        }, 300);
+
         setIsFlipped(prev => !prev);
     };
 
@@ -55,7 +79,10 @@ export default function FlipToggle() {
                     damping: 14,
                     mass: 1.2,
                 }}
-                onAnimationComplete={() => setIsAnimating(false)}
+                onAnimationComplete={() => {
+                    setIsAnimating(false);
+                    setIsTechOverlayActive(!isFlipped);
+                }}
                 style={{ transformStyle: 'preserve-3d' }}
             >
                 {/* Front — Engineering */}
@@ -67,7 +94,7 @@ export default function FlipToggle() {
                         minHeight: '100vh',
                     }}
                 >
-                    <EngineeringSide />
+                    <EngineeringSide isActive={isTechOverlayActive} />
                 </div>
 
                 {/* Back — Art */}

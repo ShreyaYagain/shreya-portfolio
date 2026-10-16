@@ -1,69 +1,182 @@
+import { useState, useRef, useEffect } from 'react';
 import { contact } from '../../data/engineeringData';
 
 export default function ContactFooter({ mode }) {
+    const [copied, setCopied] = useState(false);
+    const [downloaded, setDownloaded] = useState(false);
+    const copyTimerRef = useRef(null);
+    const downloadTimerRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+            if (downloadTimerRef.current) clearTimeout(downloadTimerRef.current);
+        };
+    }, []);
+
+    const handleCopy = () => {
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+        navigator.clipboard.writeText(contact.email);
+        setCopied(true);
+        copyTimerRef.current = setTimeout(() => {
+            setCopied(false);
+        }, 2500);
+    };
+
+    const handleDownload = () => {
+        if (downloadTimerRef.current) clearTimeout(downloadTimerRef.current);
+        setDownloaded(true);
+        downloadTimerRef.current = setTimeout(() => {
+            setDownloaded(false);
+        }, 2500);
+    };
+
     if (mode === 'engineering') {
         return (
             <footer className="py-16 px-4 max-w-3xl mx-auto">
-                <div className="osc-screen p-6 md:p-8">
-                    <div className="mb-6" style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '1.5rem', color: '#39ff14', textShadow: 'var(--osc-glow-sm)' }}>{'>'} CONTACT_INIT</div>
+                <div className="osc-screen p-6 md:p-8 relative overflow-hidden transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_25px_rgba(57,255,20,0.12)]">
+                    {/* Top scanning accent line */}
+                    <div
+                        className="absolute top-0 left-0 right-0 h-1 waveform-scan"
+                        style={{
+                            background: 'linear-gradient(90deg, transparent, var(--osc-phosphor), transparent)',
+                            backgroundSize: '200% 100%',
+                        }}
+                    />
 
-                    <div className="space-y-3" style={{
-                        fontFamily: "'Inconsolata', monospace",
-                        fontSize: '0.9rem',
-                    }}>
-                        <div className="flex items-center gap-3">
-                            <span className="phosphor-text-dim">{'>'} EMAIL:</span>
-                            <a href={`mailto:${contact.email}`} className="phosphor-text hover:underline" style={{ textDecoration: 'none' }}>
-                                {contact.email}
-                            </a>
+                    <div className="mb-6 flex items-center justify-between flex-wrap gap-2">
+                        <span
+                            style={{
+                                fontFamily: "'Share Tech Mono', monospace",
+                                fontSize: '1.5rem',
+                                color: '#39ff14',
+                                textShadow: 'var(--osc-glow-sm)',
+                            }}
+                        >
+                            {'>'} CONTACT_INIT
+                        </span>
+                        <span className="channel-label" style={{ fontSize: '0.7rem' }}>
+                            TERMINAL: CH_COMMS
+                        </span>
+                    </div>
+
+                    <div
+                        className="space-y-3"
+                        style={{
+                            fontFamily: "'Inconsolata', monospace",
+                            fontSize: '0.9rem',
+                        }}
+                    >
+                        {/* EMAIL */}
+                        <div className="flex items-center justify-between gap-3 p-2 rounded transition-colors duration-200 hover:bg-[rgba(57,255,20,0.05)]">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                                <span className="phosphor-text-dim">{'>'} EMAIL:</span>
+                                <a
+                                    href={`mailto:${contact.email}`}
+                                    className="phosphor-text hover:underline"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    {contact.email}
+                                </a>
+                            </div>
                             <button
-                                onClick={() => navigator.clipboard.writeText(contact.email)}
-                                className="px-2 py-0.5 text-xs rounded cursor-pointer"
-                                style={{
-                                    border: '1px solid rgba(57,255,20,0.2)',
-                                    background: 'rgba(57,255,20,0.05)',
-                                    color: 'rgba(57,255,20,0.5)',
-                                    fontFamily: "'Share Tech Mono', monospace",
-                                }}
+                                type="button"
+                                onClick={handleCopy}
+                                className="terminal-btn flex-shrink-0"
+                                style={copied ? { color: '#39ff14', borderColor: '#39ff14', textShadow: 'var(--osc-glow-sm)' } : {}}
                             >
-                                [COPY]
+                                {copied ? '[COPIED ✓]' : '[COPY]'}
                             </button>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <span className="phosphor-text-dim">{'>'} LINKEDIN:</span>
-                            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer"
-                                className="phosphor-text hover:underline" style={{ textDecoration: 'none' }}>
-                                /in/shreya-yagain...
+                        {/* LINKEDIN */}
+                        <div className="flex items-center justify-between gap-3 p-2 rounded transition-colors duration-200 hover:bg-[rgba(57,255,20,0.05)]">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                                <span className="phosphor-text-dim">{'>'} LINKEDIN:</span>
+                                <a
+                                    href={contact.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="phosphor-text hover:underline"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    /in/shreya-yagain...
+                                </a>
+                            </div>
+                            <a
+                                href={contact.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="terminal-btn flex-shrink-0"
+                            >
+                                [OPEN ↗]
                             </a>
-                            <span className="text-xs" style={{ color: 'rgba(57,255,20,0.3)', fontFamily: "'Share Tech Mono', monospace" }}>[OPEN]</span>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <span className="phosphor-text-dim">{'>'} GITHUB:</span>
-                            <a href={contact.github} target="_blank" rel="noopener noreferrer"
-                                className="phosphor-text hover:underline" style={{ textDecoration: 'none' }}>
-                                /ShreyaYagain
+                        {/* GITHUB */}
+                        <div className="flex items-center justify-between gap-3 p-2 rounded transition-colors duration-200 hover:bg-[rgba(57,255,20,0.05)]">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                                <span className="phosphor-text-dim">{'>'} GITHUB:</span>
+                                <a
+                                    href={contact.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="phosphor-text hover:underline"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    /ShreyaYagain
+                                </a>
+                            </div>
+                            <a
+                                href={contact.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="terminal-btn flex-shrink-0"
+                            >
+                                [OPEN ↗]
                             </a>
-                            <span className="text-xs" style={{ color: 'rgba(57,255,20,0.3)', fontFamily: "'Share Tech Mono', monospace" }}>[OPEN]</span>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <span className="phosphor-text-dim">{'>'} RESUME:</span>
-                            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-                                className="phosphor-text hover:underline" style={{ textDecoration: 'none' }}>
-                                /sys/shreya_resume.pdf
+                        {/* RESUME */}
+                        <div className="flex items-center justify-between gap-3 p-2 rounded transition-colors duration-200 hover:bg-[rgba(57,255,20,0.05)]">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                                <span className="phosphor-text-dim">{'>'} RESUME:</span>
+                                <a
+                                    href="/resume.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="phosphor-text hover:underline"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    /sys/shreya_resume.pdf
+                                </a>
+                            </div>
+                            <a
+                                href="/resume.pdf"
+                                download="shreya_resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={handleDownload}
+                                className="terminal-btn flex-shrink-0"
+                                style={downloaded ? { color: '#39ff14', borderColor: '#39ff14', textShadow: 'var(--osc-glow-sm)' } : {}}
+                            >
+                                {downloaded ? '[DOWNLOADED ✓]' : '[DOWNLOAD ⤓]'}
                             </a>
-                            <span className="text-xs" style={{ color: 'rgba(57,255,20,0.3)', fontFamily: "'Share Tech Mono', monospace" }}>[DOWNLOAD]</span>
                         </div>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t" style={{ borderColor: 'rgba(57,255,20,0.1)' }}>
-                        <span className="phosphor-text-dim" style={{
-                            fontFamily: "'Share Tech Mono', monospace",
-                            fontSize: '0.75rem',
-                        }}>
+                    <div className="mt-6 pt-4 border-t flex items-center justify-between text-xs" style={{ borderColor: 'rgba(57,255,20,0.1)' }}>
+                        <span
+                            className="phosphor-text-dim"
+                            style={{
+                                fontFamily: "'Share Tech Mono', monospace",
+                                fontSize: '0.75rem',
+                            }}
+                        >
                             ── SIGNAL_END ──────────────────────
+                        </span>
+                        <span className="channel-label" style={{ fontSize: '0.68rem' }}>
+                            STATUS: READY
                         </span>
                     </div>
                 </div>
