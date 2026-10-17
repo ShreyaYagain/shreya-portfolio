@@ -20,7 +20,6 @@
 .engineering-side {
     background: var(--osc-bg);
     color: var(--osc-phosphor);
-    cursor: crosshair;
     min-height: 100vh;
     position: relative;
     overflow: hidden;
@@ -242,27 +241,97 @@
 }
 
 /* ═══════════════════════════════════════════ */
-/* TECH SIDE CUSTOM CURSOR SUPPRESSION        */
+/* TECH PHOSPHOR CURSOR (CSS only, no JS loop) */
 /* ═══════════════════════════════════════════ */
 
-/* When the custom cursor is active, hide native system cursor across all elements and pseudo-states */
-html.tech-cursor-active,
-html.tech-cursor-active *,
-html.tech-cursor-active *::before,
-html.tech-cursor-active *::after,
-html.tech-cursor-active *:hover,
-html.tech-cursor-active *:active,
-html.tech-cursor-active *:focus {
-    cursor: none !important;
+/* Default for tech container and all its descendants */
+.tech-cursor,
+.engineering-side,
+.tech-cursor *,
+.engineering-side * {
+    cursor: url("/cursors/tech-ring.svg") 16 16,
+            url("/cursors/tech-ring-32.png") 16 16,
+            crosshair;
+    cursor: -webkit-image-set(url("/cursors/tech-ring-32.png") 1x, url("/cursors/tech-ring-64.png") 2x) 16 16,
+            url("/cursors/tech-ring.svg") 16 16,
+            url("/cursors/tech-ring-32.png") 16 16,
+            crosshair;
+    cursor: image-set(url("/cursors/tech-ring-32.png") 1x, url("/cursors/tech-ring-64.png") 2x) 16 16,
+            url("/cursors/tech-ring.svg") 16 16,
+            url("/cursors/tech-ring-32.png") 16 16,
+            crosshair;
 }
 
-/* Maintain native text cursor over inputs and textareas on tech side */
-html.tech-cursor-active input[type="text"],
-html.tech-cursor-active input[type="email"],
-html.tech-cursor-active input[type="search"],
-html.tech-cursor-active input[type="password"],
-html.tech-cursor-active input:not([type]),
-html.tech-cursor-active textarea,
-html.tech-cursor-active [contenteditable="true"] {
+/* Force hover probe cursor over interactive/clickable elements */
+.tech-cursor a,
+.engineering-side a,
+.tech-cursor button,
+.engineering-side button,
+.tech-cursor [role="button"],
+.engineering-side [role="button"],
+.tech-cursor .cursor-pointer,
+.engineering-side .cursor-pointer,
+.tech-cursor [onclick],
+.engineering-side [onclick],
+.tech-cursor .terminal-btn,
+.engineering-side .terminal-btn,
+.tech-cursor .project-card,
+.engineering-side .project-card,
+.tech-cursor .component-group,
+.engineering-side .component-group,
+.tech-cursor summary,
+.engineering-side summary,
+.tech-cursor [style*="cursor: pointer"],
+.engineering-side [style*="cursor: pointer"],
+.tech-cursor [style*="cursor:pointer"],
+.engineering-side [style*="cursor:pointer"],
+.tech-cursor a *,
+.engineering-side a *,
+.tech-cursor button *,
+.engineering-side button *,
+.tech-cursor [role="button"] *,
+.engineering-side [role="button"] *,
+.tech-cursor .cursor-pointer *,
+.engineering-side .cursor-pointer *,
+.tech-cursor .terminal-btn *,
+.engineering-side .terminal-btn *,
+.tech-cursor .project-card *,
+.engineering-side .project-card *,
+.tech-cursor .component-group *,
+.engineering-side .component-group *,
+.tech-cursor summary *,
+.engineering-side summary *,
+.tech-cursor [style*="cursor: pointer"] *,
+.engineering-side [style*="cursor: pointer"] *,
+.tech-cursor [style*="cursor:pointer"] *,
+.engineering-side [style*="cursor:pointer"] * {
+    cursor: url("/cursors/tech-probe.svg") 16 16,
+            url("/cursors/tech-probe-32.png") 16 16,
+            pointer !important;
+    cursor: -webkit-image-set(url("/cursors/tech-probe-32.png") 1x, url("/cursors/tech-probe-64.png") 2x) 16 16,
+            url("/cursors/tech-probe.svg") 16 16,
+            url("/cursors/tech-probe-32.png") 16 16,
+            pointer !important;
+    cursor: image-set(url("/cursors/tech-probe-32.png") 1x, url("/cursors/tech-probe-64.png") 2x) 16 16,
+            url("/cursors/tech-probe.svg") 16 16,
+            url("/cursors/tech-probe-32.png") 16 16,
+            pointer !important;
+}
+
+/* Maintain standard text selection cursor for text inputs, textareas, and editable fields */
+.tech-cursor input[type="text"],
+.engineering-side input[type="text"],
+.tech-cursor input[type="email"],
+.engineering-side input[type="email"],
+.tech-cursor input[type="search"],
+.engineering-side input[type="search"],
+.tech-cursor input[type="password"],
+.engineering-side input[type="password"],
+.tech-cursor input:not([type]),
+.engineering-side input:not([type]),
+.tech-cursor textarea,
+.engineering-side textarea,
+.tech-cursor [contenteditable="true"],
+.engineering-side [contenteditable="true"] {
     cursor: text !important;
 }

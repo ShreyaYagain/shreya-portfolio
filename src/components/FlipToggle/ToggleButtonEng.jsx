@@ -4,7 +4,7 @@ export default function ToggleButtonEng({ onClick }) {
     return (
         <motion.button
             onClick={onClick}
-            className="fixed z-[200] flex items-center gap-3 px-3.5 py-2 sm:px-4 rounded-md cursor-pointer select-none max-w-[calc(100vw-32px)]"
+            className="fixed z-[200] flex items-center gap-3 px-3.5 py-2 sm:px-4 rounded-md cursor-pointer select-none max-w-[calc(100vw-32px)] tech-cursor"
             style={{
                 position: 'fixed',
                 top: 'max(16px, env(safe-area-inset-top, 16px))',

@@ -30,7 +30,7 @@ function ProjectCard({ project, index, isSpan2 }) {
     return (
         <MotionDiv
             ref={ref}
-            className={`osc-screen p-5 md:p-6 relative overflow-hidden flex flex-col h-full ${
+            className={`osc-screen project-card p-5 md:p-6 relative overflow-hidden flex flex-col h-full transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
                 isSpan2 ? 'md:col-span-2' : ''
             }`}
             initial={{ opacity: 0, y: 24 }}

@@ -69,7 +69,7 @@ export default function BreadboardSVG({ onHover, onLeave }) {
             animation: tracePulseAnim 0.85s linear infinite reverse;
           }
           .component-group {
-            cursor: pointer;
+            cursor: url("/cursors/tech-probe.svg") 16 16, pointer;
             transition: all 0.25s ease;
           }
           .component-group:hover {

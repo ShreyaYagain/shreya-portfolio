@@ -89,7 +89,7 @@ export default function BootSequence() {
         <AnimatePresence>
             {isVisible && (
                 <MotionDiv
-                    className="fixed inset-0 z-[9999] bg-[#070c07] flex flex-col items-center justify-center p-4 sm:p-6 cursor-pointer select-none"
+                    className="fixed inset-0 z-[9999] bg-[#070c07] flex flex-col items-center justify-center p-4 sm:p-6 cursor-pointer select-none tech-cursor"
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.45, ease: 'easeInOut' }}

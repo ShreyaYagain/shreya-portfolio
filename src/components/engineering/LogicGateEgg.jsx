@@ -35,6 +35,7 @@ export default function LogicGateEgg() {
                     {/* Input A */}
                     <g
                         onClick={() => setInputA(!inputA)}
+                        className="cursor-pointer"
                         style={{ cursor: 'pointer' }}
                     >
                         <rect x="20" y="40" width="50" height="30" rx="3"
@@ -61,6 +62,7 @@ export default function LogicGateEgg() {
                     {/* Input B */}
                     <g
                         onClick={() => setInputB(!inputB)}
+                        className="cursor-pointer"
                         style={{ cursor: 'pointer' }}
                     >
                         <rect x="20" y="120" width="50" height="30" rx="3"

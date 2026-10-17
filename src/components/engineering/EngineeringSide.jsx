@@ -1,4 +1,3 @@
-import CustomCursor from './CustomCursor';
 import BootSequence from './BootSequence';
 import OscilloscopeHero from './OscilloscopeHero';
 import Timeline from './Timeline';
@@ -12,8 +11,7 @@ import ContactFooter from '../shared/ContactFooter';
 
 export default function EngineeringSide({ isActive = true }) {
     return (
-        <div className={`engineering-side ${isActive ? 'has-crt-overlay' : ''}`}>
-            <CustomCursor />
+        <div className={`engineering-side tech-cursor ${isActive ? 'has-crt-overlay' : ''}`}>
             <BootSequence />
             <OscilloscopeHero />
             <Timeline />

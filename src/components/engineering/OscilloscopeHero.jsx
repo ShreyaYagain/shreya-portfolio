@@ -185,7 +185,6 @@ export default function OscilloscopeHero() {
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}
                         style={{
-                            cursor: 'crosshair',
                             maskImage: 'linear-gradient(to right, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%)',
                             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%)',
                         }}
