@@ -22,7 +22,7 @@ export const sketches = [
 export const tools = {
     digital: {
         heading: 'digital studio →',
-        tools: ['iPad', 'IbisPaintX'],
+        tools: ['iPad', 'IbisPaintX', 'Procreate'],
         note: 'mobility to sketch freely and iterate rapidly',
         current: 'currently exploring: Flip-A-Clip ✦',
     },

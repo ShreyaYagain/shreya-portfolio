@@ -6,6 +6,7 @@ export const toolsData = {
         tools: [
             { id: 'ipad', name: 'iPad', icon: 'tablet', tilt: -1 },
             { id: 'ibispaintx', name: 'IbisPaintX', icon: 'stylus', tilt: 1.5 },
+            { id: 'procreate', name: 'Procreate', icon: 'brush', tilt: -0.8 },
         ],
     },
     traditional: {

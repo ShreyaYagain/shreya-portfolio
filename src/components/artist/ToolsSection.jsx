@@ -44,6 +44,26 @@ function ToolIcon({ type }) {
                     <circle cx="9.5" cy="5.5" r="0.6" fill="currentColor" />
                 </svg>
             );
+        case 'brush':
+        case 'procreate':
+            return (
+                <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="flex-shrink-0"
+                >
+                    <path d="M12.5 1.5L14.5 3.5L10 8L8 6L12.5 1.5Z" />
+                    <path d="M8 6L5.5 8.5C4 10 2 12 2 14C4 14 6 12 7.5 10.5L10 8" />
+                    <path d="M2 14C2.5 12.5 3.5 12.5 4.5 13.5C3.5 14.5 2 14 2 14Z" fill="currentColor" />
+                </svg>
+            );
         case 'pencil':
             return (
                 <svg

@@ -138,15 +138,7 @@ export default function ScrapbookHero() {
 
             </div>
 
-            {/* ── BOTTOM CORNER ANNOTATION ── */}
-            <motion.span
-                className={styles.eggAnnotation}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-            >
-                ongoing experiment
-            </motion.span>
+
 
             {/* Easter Egg Overlay Message */}
             <AnimatePresence>

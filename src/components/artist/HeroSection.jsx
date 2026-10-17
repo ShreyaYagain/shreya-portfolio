@@ -6,7 +6,6 @@ import styles from '../art/ScrapbookHero.module.css';
 const MotionP = motion.p;
 const MotionH1 = motion.h1;
 const MotionDiv = motion.div;
-const MotionSpan = motion.span;
 
 const DOODLE_SVGS = [
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="var(--sk-red)"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>', // Star
@@ -148,15 +147,7 @@ export default function HeroSection() {
                 </MotionDiv>
             </div>
 
-            {/* ── BOTTOM CORNER ANNOTATION ── */}
-            <MotionSpan
-                className={styles.eggAnnotation}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-            >
-                ongoing experiment
-            </MotionSpan>
+
 
             {/* Easter Egg Overlay Message */}
             <AnimatePresence>
