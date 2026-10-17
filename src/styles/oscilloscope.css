@@ -240,3 +240,29 @@
     text-shadow: var(--osc-glow-sm);
     box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
 }
+
+/* ═══════════════════════════════════════════ */
+/* TECH SIDE CUSTOM CURSOR SUPPRESSION        */
+/* ═══════════════════════════════════════════ */
+
+/* When the custom cursor is active, hide native system cursor across all elements and pseudo-states */
+html.tech-cursor-active,
+html.tech-cursor-active *,
+html.tech-cursor-active *::before,
+html.tech-cursor-active *::after,
+html.tech-cursor-active *:hover,
+html.tech-cursor-active *:active,
+html.tech-cursor-active *:focus {
+    cursor: none !important;
+}
+
+/* Maintain native text cursor over inputs and textareas on tech side */
+html.tech-cursor-active input[type="text"],
+html.tech-cursor-active input[type="email"],
+html.tech-cursor-active input[type="search"],
+html.tech-cursor-active input[type="password"],
+html.tech-cursor-active input:not([type]),
+html.tech-cursor-active textarea,
+html.tech-cursor-active [contenteditable="true"] {
+    cursor: text !important;
+}

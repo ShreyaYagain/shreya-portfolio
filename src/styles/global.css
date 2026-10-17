@@ -21,6 +21,14 @@ html {
 body {
   overflow-x: hidden;
   min-height: 100vh;
+  background-color: #070c07;
+  color: #39ff14;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.art-mode {
+  background-color: #f2ede3;
+  color: #1a1208;
 }
 
 :root {
@@ -28,10 +36,16 @@ body {
   --scrollbar-track: #0a0a0a;
 }
 
-.art-mode {
+body.art-mode,
+:root:has(body.art-mode) {
   --scrollbar-thumb: #79010d;
   --scrollbar-track: #f0ebe1;
   /* paper color */
+}
+
+html {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
 }
 
 /* Custom scrollbar */
@@ -59,6 +73,7 @@ body {
 }
 
 /* Art side selection */
+body.art-mode ::selection,
 .art-mode ::selection {
   background: rgba(121, 1, 13, 0.2);
   color: #79010d;

@@ -78,7 +78,7 @@ export default function Timeline() {
     const { ref: sectionRef, inView: sectionInView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
     return (
-        <section ref={sectionRef} className="py-16 px-4 max-w-3xl mx-auto">
+        <section id="education" ref={sectionRef} className="py-16 px-4 max-w-3xl mx-auto">
             <h2 className="text-center mb-2" style={{
                 fontFamily: "'Share Tech Mono', monospace",
                 fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',

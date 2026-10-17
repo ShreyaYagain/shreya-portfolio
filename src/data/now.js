@@ -1,0 +1,55 @@
+export const exploringNotes = [
+    {
+        id: 'digital-animation',
+        text: 'digital animation',
+        colorName: 'muted cream-yellow',
+        bg: '#faf5e8',
+        border: 'rgba(121, 1, 13, 0.12)',
+        tilt: -2.2,
+        tapeAngle: -1.5,
+        doodle: 'star',
+    },
+    {
+        id: 'crochet',
+        text: 'crochet',
+        colorName: 'blush dusty-rose',
+        bg: '#f9eeef',
+        border: 'rgba(121, 1, 13, 0.14)',
+        tilt: 1.8,
+        tapeAngle: 2,
+        doodle: 'yarn',
+    },
+    {
+        id: 'craft',
+        text: 'craft',
+        colorName: 'kraft beige',
+        bg: '#f2ece1',
+        border: 'rgba(74, 63, 47, 0.14)',
+        tilt: -1.4,
+        tapeAngle: -0.8,
+        doodle: 'heart',
+    },
+    {
+        id: 'poetry',
+        text: 'poetry',
+        colorName: 'warm white',
+        bg: '#fbf8f2',
+        border: 'rgba(121, 1, 13, 0.11)',
+        tilt: 2.3,
+        tapeAngle: 1.2,
+        doodle: 'quill',
+    },
+    {
+        id: 'acrylic-markers',
+        text: 'acrylic markers',
+        colorName: 'deep kraft',
+        bg: '#eee7db',
+        border: 'rgba(74, 63, 47, 0.16)',
+        tilt: -1.8,
+        tapeAngle: -1.8,
+        doodle: 'marker',
+    },
+];
+
+export const nowData = exploringNotes;
+export default exploringNotes;

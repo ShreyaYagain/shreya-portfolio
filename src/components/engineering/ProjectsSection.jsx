@@ -150,7 +150,7 @@ function ProjectCard({ project, index, isSpan2 }) {
 
 export default function ProjectsSection() {
     return (
-        <section className="py-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto">
+        <section id="projects" className="py-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto">
             <h2 className="text-center mb-2" style={{
                 fontFamily: "'Share Tech Mono', monospace",
                 fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',

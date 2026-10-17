@@ -28,7 +28,7 @@ export default function InteractiveCircuit() {
   };
 
   return (
-    <div className="flex flex-col items-center py-16 px-4">
+    <section id="skills" className="flex flex-col items-center py-16 px-4">
       {/* Container for the circuit section title */}
       <h2
         className="text-center mb-2"
@@ -180,6 +180,6 @@ export default function InteractiveCircuit() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

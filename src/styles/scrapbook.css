@@ -182,3 +182,78 @@
         padding: 2rem 1rem;
     }
 }
+
+/* Pause marquee animations when video modal or lightbox is open */
+body.modal-open .marquee-container,
+body.modal-open .marquee-left,
+body.modal-open .marquee-right {
+    animation-play-state: paused !important;
+}
+
+/* ═══════════════════════════════════════════ */
+/* ARTIST PENCIL CURSOR (CSS only, no JS loop) */
+/* ═══════════════════════════════════════════ */
+
+.artist-cursor,
+.artist-theme,
+.artist-cursor *,
+.artist-theme * {
+    cursor: url("/cursors/pencil.svg") 2 30,
+            url("/cursors/pencil-32.png") 2 30,
+            auto;
+    cursor: -webkit-image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+            url("/cursors/pencil.svg") 2 30,
+            url("/cursors/pencil-32.png") 2 30,
+            auto;
+    cursor: image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+            url("/cursors/pencil.svg") 2 30,
+            url("/cursors/pencil-32.png") 2 30,
+            auto;
+}
+
+/* Force pencil cursor over clickable elements (links, buttons, polaroids, cards, tags) */
+.artist-cursor a,
+.artist-theme a,
+.artist-cursor button,
+.artist-theme button,
+.artist-cursor [role="button"],
+.artist-theme [role="button"],
+.artist-cursor .cursor-pointer,
+.artist-theme .cursor-pointer,
+.artist-cursor .sketch-card,
+.artist-theme .sketch-card,
+.artist-cursor a *,
+.artist-theme a *,
+.artist-cursor button *,
+.artist-theme button *,
+.artist-cursor [role="button"] *,
+.artist-theme [role="button"] *,
+.artist-cursor .cursor-pointer *,
+.artist-theme .cursor-pointer *,
+.artist-cursor .sketch-card * {
+    cursor: url("/cursors/pencil.svg") 2 30,
+            url("/cursors/pencil-32.png") 2 30,
+            auto !important;
+    cursor: -webkit-image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+            url("/cursors/pencil.svg") 2 30,
+            url("/cursors/pencil-32.png") 2 30,
+            auto !important;
+    cursor: image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+            url("/cursors/pencil.svg") 2 30,
+            url("/cursors/pencil-32.png") 2 30,
+            auto !important;
+}
+
+/* Maintain standard text selection cursor for text inputs, textareas, and editable fields */
+.artist-cursor input[type="text"],
+.artist-theme input[type="text"],
+.artist-cursor input[type="email"],
+.artist-theme input[type="email"],
+.artist-cursor input[type="search"],
+.artist-theme input[type="search"],
+.artist-cursor textarea,
+.artist-theme textarea,
+.artist-cursor [contenteditable="true"],
+.artist-theme [contenteditable="true"] {
+    cursor: text !important;
+}

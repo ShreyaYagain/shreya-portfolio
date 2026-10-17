@@ -4,7 +4,7 @@ export default function ToggleButtonArt({ onClick }) {
     return (
         <motion.button
             onClick={onClick}
-            className="fixed top-6 right-6 z-[200] px-5 py-3 cursor-pointer"
+            className="fixed top-6 right-6 z-[200] px-5 py-3 cursor-pointer artist-theme artist-cursor"
             style={{
                 background: '#f2ede3',
                 border: 'none',

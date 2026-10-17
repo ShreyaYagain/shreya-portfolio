@@ -1,7 +1,7 @@
 export const aboutParagraphs = [
     `My artistic journey began with a simple pen and an insatiable curiosity. From rudimentary after-school sketches to dedicated self-study, I have continuously explored various techniques and mediums.`,
     `I am profoundly drawn to capturing the human experience, focusing particularly on nuanced gestures and the expressive depth found within the eyes.`,
-    `For me, art is an ongoing experiment — a commitment to continuous learning without the fear of failure. Currently, my primary focus lies in cultivating my skills within the realm of realistic sketching and portraiture.`,
+    `For me, art is an ongoing experiment, a commitment to continuous learning without the fear of failure. Currently, my primary focus lies in cultivating my skills within the realm of realistic sketching and portraiture.`,
 ];
 
 export const sketches = [

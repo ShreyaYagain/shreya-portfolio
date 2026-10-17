@@ -5,7 +5,6 @@ const annotations = [
     { text: 'iPad + IbisPaintX', top: '35%', left: '3%', rotate: -1, color: 'var(--sk-red)', font: '0.95rem' },
     { text: 'graphite is forever', top: '55%', left: '42%', rotate: 2, color: 'var(--sk-ink-mid)', font: '1rem' },
     { text: 'eyes are everything', top: '70%', left: '6%', rotate: -1.5, color: 'var(--sk-red)', font: '1.05rem' },
-    { text: '~ still learning ~', top: '88%', left: '2%', rotate: 1, color: 'var(--sk-ink-mid)', font: '1.1rem' },
     { text: 'ongoing experiment', top: '40%', left: '5%', rotate: -1, color: 'var(--sk-red)', font: '1rem' }
 ];
 
