@@ -117,6 +117,7 @@ export default function ScrapbookHero() {
                         src="/photos/shreya-bw.png"
                         alt="Shreya Harish Yagain"
                         className={styles.photo}
+                        decoding="async"
                         onError={(e) => {
                             e.target.style.display = 'none';
                             e.target.nextSibling.style.display = 'flex';
@@ -124,13 +125,11 @@ export default function ScrapbookHero() {
                     />
                     {/* Fallback / Placeholder shown until real photo is added */}
                     <div className={styles.photoFallback} style={{
-                        background: 'linear-gradient(135deg, var(--sk-paper-dark), var(--sk-paper))',
-                        border: '3px solid var(--sk-paper-dark)',
+                        background: 'transparent',
                         minHeight: '350px',
                         display: 'none',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        boxShadow: '4px 6px 20px rgba(0,0,0,0.1)',
                     }}>
                         <p className={styles.photoCaption}>[ photo goes here ]</p>
                     </div>

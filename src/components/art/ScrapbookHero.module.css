@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between;
   min-height: 100vh;
-  padding: 80px 6vw 60px 6vw;
+  padding: 60px 4vw 40px 4vw;
   position: relative;
   background-color: var(--sk-bg);           /* #f2ede3 */
   overflow: hidden;
@@ -13,27 +13,25 @@
 
 /* ── LEFT COLUMN ── */
 .leftCol {
-  width: 58%;
+  width: 48%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding-left: 8vw;
-  padding-top: 40px;
+  padding-left: 5vw;
+  padding-top: 20px;
 }
 
-/* Caveat handwritten opener */
+/* Caveat handwritten opener — increased spacing kept, rotation dropped */
 .annotationOpener {
   font-family: 'Caveat', cursive;
   font-size: clamp(1rem, 1.6vw, 1.3rem);
   color: var(--sk-ink-mid);                 /* #4a3f2f */
   line-height: 1.6;
-  margin-bottom: 12px;
-  transform: rotate(1deg);
+  margin-bottom: 26px;
 }
 
-
-/* Hero name — Permanent Marker */
+/* Hero name — Permanent Marker, tilted -3deg */
 .heroName {
   display: flex;
   flex-direction: column;
@@ -52,33 +50,49 @@
   font-size: clamp(4rem, 9vw, 8.5rem);
 }
 
+/* Marker Underline under Yagain */
+.markerUnderline {
+  width: 85%;
+  max-width: 320px;
+  height: 18px;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  margin-top: 4px;
+}
+
 /* Subtitle */
+.subtitleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 4px;
+}
+
 .subtitle {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   color: var(--sk-ink-mid);
   letter-spacing: 0.03em;
+  margin: 0;
 }
 
-/* Floating annotation pinned to left */
-.floatNote {
-  font-family: 'Caveat', cursive;
-  font-size: 0.95rem;
-  color: var(--sk-ink-mid);
-  position: absolute;
+/* Wavy Underline under subtitle */
+.wavyUnderline {
+  width: 220px;
+  height: 8px;
+  display: block;
+  overflow: visible;
   pointer-events: none;
-}
-
-.floatNoteLeft {
-  top: 12px;
-  left: -20px;
-  transform: rotate(-2deg);
+  user-select: none;
+  margin-top: 4px;
 }
 
 /* ── RIGHT COLUMN ── */
 .rightCol {
-  width: 38%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,24 +102,25 @@
 .photoFrame {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 660px;
+  background: transparent;
 }
 
 .photo {
   width: 100%;
+  max-height: 92vh;
+  object-fit: contain;
   height: auto;
   display: block;
-  filter: grayscale(100%) contrast(1.2);    /* B&W treatment */
-  mix-blend-mode: multiply;                 /* blends with paper bg */
+  background: transparent;
 }
 
 .photoFallback {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
 }
 
-/* Placeholder caption shown until real photo is added */
 .photoCaption {
   font-family: 'Caveat', cursive;
   font-size: 0.9rem;
@@ -113,21 +128,6 @@
   text-align: center;
   margin-top: 8px;
   opacity: 0.6;
-}
-
-/* ── BOTTOM CORNER EASTER EGG ANNOTATION ── */
-.eggAnnotation {
-  position: absolute;
-  bottom: 32px;
-  right: 5vw;
-  font-family: 'Caveat', cursive;
-  font-size: 1rem;
-  color: var(--sk-red);
-  border: 1.5px solid var(--sk-red);
-  border-radius: 50%;
-  padding: 6px 16px;
-  transform: rotate(3deg);
-  pointer-events: none;
 }
 
 /* ── MOBILE ── */
@@ -148,15 +148,11 @@
   }
 
   .photoFrame {
-    max-width: 280px;
+    max-width: 380px;
     margin: 0 auto;
   }
 
   .nameLine {
     font-size: clamp(3.5rem, 16vw, 5rem);
-  }
-
-  .floatNoteLeft {
-    display: none;       /* too cluttered on mobile */
   }
 }

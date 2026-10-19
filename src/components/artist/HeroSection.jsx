@@ -6,6 +6,7 @@ import styles from '../art/ScrapbookHero.module.css';
 const MotionP = motion.p;
 const MotionH1 = motion.h1;
 const MotionDiv = motion.div;
+const MotionPath = motion.path;
 
 const DOODLE_SVGS = [
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="var(--sk-red)"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>', // Star
@@ -13,6 +14,63 @@ const DOODLE_SVGS = [
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sk-red)" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>', // Heart
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sk-red)" strokeWidth="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>' // Plus
 ];
+
+/**
+ * Maroon marker underline under "Yagain" that draws once on load, then stays.
+ */
+function MarkerUnderline({ shouldReduceMotion }) {
+    return (
+        <svg
+            viewBox="0 0 320 22"
+            className={styles.markerUnderline}
+            fill="none"
+            aria-hidden="true"
+        >
+            <MotionPath
+                d="M 3 12 C 55 6, 125 16, 195 9 C 240 5, 285 13, 317 8"
+                stroke="#79010d"
+                strokeWidth="3.6"
+                strokeLinecap="round"
+                initial={shouldReduceMotion ? { pathLength: 1, opacity: 0.95 } : { pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.95 }}
+                transition={{
+                    duration: shouldReduceMotion ? 0 : 0.85,
+                    delay: shouldReduceMotion ? 0 : 0.75,
+                    ease: [0.16, 1, 0.3, 1],
+                }}
+            />
+        </svg>
+    );
+}
+
+/**
+ * Thin subtle wavy underline under "Electronics Engineer · Visual Artist" that draws once on load.
+ */
+function SubtitleWavyUnderline({ shouldReduceMotion }) {
+    return (
+        <svg
+            viewBox="0 0 260 12"
+            className={styles.wavyUnderline}
+            fill="none"
+            aria-hidden="true"
+        >
+            <MotionPath
+                d="M 2 6 Q 16 1, 30 6 T 58 6 T 86 6 T 114 6 T 142 6 T 170 6 T 198 6 T 226 6 T 256 6"
+                stroke="#4a3f2f"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                opacity="0.4"
+                initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{
+                    duration: shouldReduceMotion ? 0 : 0.9,
+                    delay: shouldReduceMotion ? 0 : 0.95,
+                    ease: 'easeOut',
+                }}
+            />
+        </svg>
+    );
+}
 
 export default function HeroSection() {
     const shouldReduceMotion = useReducedMotion();
@@ -41,7 +99,7 @@ export default function HeroSection() {
                 opacity: 0,
                 duration: 1.5 + Math.random() * 1.5,
                 ease: 'power2.out',
-                onComplete: () => doodleEl.remove()
+                onComplete: () => doodleEl.remove(),
             });
         }
 
@@ -66,10 +124,9 @@ export default function HeroSection() {
         <section id="hero" className={styles.hero}>
             {/* ── LEFT COLUMN ── */}
             <div className={styles.leftCol}>
-                {/* Handwritten opener annotation — rotated +1deg for contrast */}
+                {/* Handwritten opener annotation — extra spacing kept, rotation dropped */}
                 <MotionP
                     className={styles.annotationOpener}
-                    style={{ transform: 'rotate(1deg)' }}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
@@ -96,23 +153,24 @@ export default function HeroSection() {
                 >
                     <span className={styles.nameLine}>Shreya</span>
                     <span className={styles.nameLine}>Harish</span>
-                    <span className={styles.nameLine}>Yagain</span>
+                    <span className={styles.nameLine}>
+                        Yagain
+                        <MarkerUnderline shouldReduceMotion={shouldReduceMotion} />
+                    </span>
                 </MotionH1>
 
-                {/* Subtitle */}
-                <MotionP
-                    className={styles.subtitle}
+                {/* Subtitle with plain dot separator and thin wavy underline */}
+                <MotionDiv
+                    className={styles.subtitleWrapper}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.9, duration: 0.5 }}
                 >
-                    Electronics Engineer · Visual Artist
-                </MotionP>
-
-                {/* Floating annotation — left margin */}
-                <span className={`${styles.floatNote} ${styles.floatNoteLeft}`}>
-                    pen + insatiable curiosity →
-                </span>
+                    <p className={styles.subtitle}>
+                        Electronics Engineer · Visual Artist
+                    </p>
+                    <SubtitleWavyUnderline shouldReduceMotion={shouldReduceMotion} />
+                </MotionDiv>
             </div>
 
             {/* ── RIGHT COLUMN ── */}
@@ -127,27 +185,27 @@ export default function HeroSection() {
                         src="/photos/shreya-bw.png"
                         alt="Shreya Harish Yagain"
                         className={styles.photo}
+                        decoding="async"
                         onError={(e) => {
                             e.target.style.display = 'none';
                             e.target.nextSibling.style.display = 'flex';
                         }}
                     />
-                    {/* Fallback / Placeholder shown until real photo is added */}
-                    <div className={styles.photoFallback} style={{
-                        background: 'linear-gradient(135deg, var(--sk-paper-dark), var(--sk-paper))',
-                        border: '3px solid var(--sk-paper-dark)',
-                        minHeight: '350px',
-                        display: 'none',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '4px 6px 20px rgba(0,0,0,0.1)',
-                    }}>
+                    {/* Fallback shown until real photo is loaded */}
+                    <div
+                        className={styles.photoFallback}
+                        style={{
+                            background: 'transparent',
+                            minHeight: '350px',
+                            display: 'none',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
                         <p className={styles.photoCaption}>[ photo goes here ]</p>
                     </div>
                 </MotionDiv>
             </div>
-
-
 
             {/* Easter Egg Overlay Message */}
             <AnimatePresence>
