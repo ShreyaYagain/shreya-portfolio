@@ -191,7 +191,7 @@ export default function AboutSection() {
                             <h3
                                 style={{
                                     fontFamily: "'Caveat', cursive, 'EB Garamond', sans-serif",
-                                    fontSize: 'clamp(2rem, 3.6vw, 2.9rem)',
+                                    fontSize: 'clamp(1.75rem, 3.6vw, 2.9rem)',
                                     fontWeight: 700,
                                     color: 'var(--sk-ink)',
                                     lineHeight: 1.15,
@@ -268,9 +268,9 @@ export default function AboutSection() {
 
                 {/* RIGHT COLUMN: 3 Overlapping Tilted Polaroids Collage (5 cols) */}
                 <div className="lg:col-span-5 flex flex-col items-center justify-center">
-                    {/* Polaroid Cluster Canvas */}
+                    {/* Desktop & Tablet Polaroid Cluster Canvas (Absolute overlapping) */}
                     <div
-                        className="relative w-full max-w-[340px] sm:max-w-[380px]"
+                        className="hidden sm:block relative w-full max-w-[340px] sm:max-w-[380px]"
                         style={{
                             height: '350px',
                         }}
@@ -304,6 +304,68 @@ export default function AboutSection() {
                         ))}
                     </div>
 
+                    {/* Mobile Polaroid Grid: 2-column layout with slight 1-2deg tilts, no overflow */}
+                    <div className="sm:hidden grid grid-cols-2 gap-3.5 w-full max-w-[320px] mx-auto pt-2 pb-1">
+                        {collage.items.map((item, idx) => {
+                            const mobileTilts = [-1.2, 1.4, -0.8];
+                            const tilt = mobileTilts[idx] || 0;
+                            const isThird = idx === 2;
+                            return (
+                                <div
+                                    key={`mobile-${item.id}`}
+                                    className={`relative bg-white p-2 pb-3 rounded-[2px] shadow-sm select-none transition-transform ${
+                                        isThird ? 'col-span-2 max-w-[155px] mx-auto w-full' : 'w-full'
+                                    }`}
+                                    style={{
+                                        transform: `rotate(${tilt}deg)`,
+                                        boxShadow: '1px 3px 10px rgba(0,0,0,0.08)',
+                                    }}
+                                >
+                                    {/* Washi Tape */}
+                                    <div
+                                        style={{
+                                            position: 'absolute',
+                                            top: '-5px',
+                                            left: item.tapeSide === 'left' ? '10px' : 'auto',
+                                            right: item.tapeSide === 'right' ? '10px' : 'auto',
+                                            width: '32px',
+                                            height: '11px',
+                                            background: 'rgba(215, 204, 185, 0.8)',
+                                            transform: item.tapeSide === 'left' ? 'rotate(-2deg)' : 'rotate(2deg)',
+                                            boxShadow: '0 1px 2px rgba(0,0,0,0.08)',
+                                            zIndex: 25,
+                                            pointerEvents: 'none',
+                                        }}
+                                        aria-hidden="true"
+                                    />
+                                    {/* Photo container */}
+                                    <div className="w-full aspect-square overflow-hidden bg-[#1a1612] rounded-[1px]">
+                                        <img
+                                            src={item.src}
+                                            alt={item.alt}
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    {/* Caption */}
+                                    <p
+                                        className="mt-1.5 text-center truncate px-0.5"
+                                        style={{
+                                            fontFamily: "'Caveat', cursive, 'EB Garamond', sans-serif",
+                                            fontSize: '0.92rem',
+                                            fontWeight: 700,
+                                            color: 'var(--sk-ink)',
+                                            lineHeight: 1.15,
+                                        }}
+                                    >
+                                        {item.caption}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
+
                     {/* Handwritten note under collage */}
                     <p
                         className="mt-4 text-center select-none"
@@ -322,10 +384,10 @@ export default function AboutSection() {
             {/* ═══════════════════════════════════════════ */}
             {/* SECOND ROW: Two Side-by-Side Note Cards     */}
             {/* ═══════════════════════════════════════════ */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-stretch">
                 {/* Note Card 1: What Draws Me */}
                 <MotionDiv
-                    className="relative p-6 sm:p-7 rounded-[2px] transition-transform duration-300 flex flex-col justify-start"
+                    className="relative p-5 sm:p-7 rounded-[2px] transition-transform duration-300 flex flex-col justify-start"
                     style={{
                         background: '#faf6ee',
                         border: '1px solid rgba(121, 1, 13, 0.09)',
@@ -385,7 +447,7 @@ export default function AboutSection() {
 
                 {/* Note Card 2: Where I Am Now */}
                 <MotionDiv
-                    className="relative p-6 sm:p-7 rounded-[2px] transition-transform duration-300 flex flex-col justify-start"
+                    className="relative p-5 sm:p-7 rounded-[2px] transition-transform duration-300 flex flex-col justify-start"
                     style={{
                         background: '#faf6ee',
                         border: '1px solid rgba(121, 1, 13, 0.09)',

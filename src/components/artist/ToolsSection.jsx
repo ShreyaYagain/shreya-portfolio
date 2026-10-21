@@ -179,14 +179,17 @@ function SquiggleUnderline() {
 
 // Sticker-style chip for each individual tool
 function ToolChip({ tool, shouldReduceMotion }) {
+    // Keep chip tilt gentle (clamped to ±1.5deg) so chips wrap cleanly on small screens
+    const gentleTilt = Math.min(Math.max(tool.tilt, -1.5), 1.5);
+
     return (
         <MotionDiv
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full cursor-default select-none transition-shadow"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-full cursor-default select-none transition-shadow"
             style={{
                 background: '#fffdf9',
                 border: '1px solid rgba(121, 1, 13, 0.14)',
                 boxShadow: '0 2px 6px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)',
-                transform: `rotate(${tool.tilt}deg)`,
+                transform: `rotate(${gentleTilt}deg)`,
                 color: 'var(--sk-ink)',
             }}
             whileHover={
@@ -194,7 +197,7 @@ function ToolChip({ tool, shouldReduceMotion }) {
                     ? {}
                     : {
                           scale: 1.08,
-                          rotate: [tool.tilt, tool.tilt - 3, tool.tilt + 3, tool.tilt - 1.5, tool.tilt],
+                          rotate: [gentleTilt, gentleTilt - 2, gentleTilt + 2, gentleTilt],
                           boxShadow: '0 4px 12px rgba(121, 1, 13, 0.14), 0 1px 3px rgba(0, 0, 0, 0.06)',
                           transition: { duration: 0.35 },
                       }
@@ -218,12 +221,14 @@ function ToolChip({ tool, shouldReduceMotion }) {
 }
 
 // Taped Paper Card
-function ToolCard({ category, rotation, isRight, inView, shouldReduceMotion }) {
+function ToolCard({ category, rotation = 1, isRight, inView, shouldReduceMotion }) {
     const isDigital = category.id === 'digital';
+    // Gentle rotation clamped to ±1deg to ensure no edge clipping on narrow mobile viewports
+    const cardRotation = isRight ? Math.min(rotation, 1) : Math.max(rotation, -1);
 
     return (
         <MotionDiv
-            className="relative flex-1 p-6 sm:p-7 md:p-8 rounded-[2px] flex flex-col justify-between"
+            className="relative flex-1 p-5 sm:p-7 md:p-8 rounded-[2px] flex flex-col justify-between"
             style={{
                 background: isDigital ? '#faf6ee' : '#f8f4ea',
                 backgroundImage: isDigital
@@ -231,7 +236,7 @@ function ToolCard({ category, rotation, isRight, inView, shouldReduceMotion }) {
                     : 'repeating-linear-gradient(transparent, transparent 27px, rgba(74, 63, 47, 0.04) 27px, rgba(74, 63, 47, 0.04) 28px)',
                 border: isDigital ? '1px solid rgba(121, 1, 13, 0.09)' : '1px solid rgba(74, 63, 47, 0.1)',
                 boxShadow: '2px 6px 20px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)',
-                transform: `rotate(${rotation}deg)`,
+                transform: `rotate(${cardRotation}deg)`,
                 height: 'auto',
                 overflow: 'visible',
             }}

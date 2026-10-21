@@ -30,7 +30,7 @@ function ProjectCard({ project, index, isSpan2 }) {
     return (
         <MotionDiv
             ref={ref}
-            className={`osc-screen project-card p-5 md:p-6 relative overflow-hidden flex flex-col h-full transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
+            className={`osc-screen project-card p-4 sm:p-5 md:p-6 relative overflow-hidden flex flex-col h-full w-full transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
                 isSpan2 ? 'md:col-span-2' : ''
             }`}
             initial={{ opacity: 0, y: 24 }}
@@ -43,12 +43,12 @@ function ProjectCard({ project, index, isSpan2 }) {
                 backgroundSize: '200% 100%',
             }} />
 
-            {/* Channel label & GitHub link */}
-            <div className="channel-label mb-3 flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2.5 flex-wrap">
-                    <span className="phosphor-text font-bold">{project.channel}</span>
+            {/* Channel label & links */}
+            <div className="channel-label mb-3 flex items-center justify-between flex-wrap gap-2.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                    <span className="phosphor-text font-bold text-xs sm:text-sm">{project.channel}</span>
                     <span className="text-green-900/30">│</span>
-                    <span>{project.year}</span>
+                    <span className="text-xs sm:text-sm">{project.year}</span>
                     {project.status === 'ongoing' && (
                         <span
                             className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm border border-[rgba(255,183,0,0.4)] bg-[rgba(255,183,0,0.06)] glow-pulse"
@@ -74,7 +74,7 @@ function ProjectCard({ project, index, isSpan2 }) {
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="terminal-btn"
+                            className="terminal-btn min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3"
                         >
                             [GITHUB ↗]
                         </a>
@@ -84,7 +84,7 @@ function ProjectCard({ project, index, isSpan2 }) {
                             href={project.website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="terminal-btn"
+                            className="terminal-btn min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3"
                         >
                             [WEBSITE ↗]
                         </a>
@@ -95,11 +95,12 @@ function ProjectCard({ project, index, isSpan2 }) {
             {/* Project title */}
             <h3 style={{
                 fontFamily: "'Share Tech Mono', monospace",
-                fontSize: 'clamp(1.05rem, 1.5vw, 1.35rem)',
+                fontSize: 'clamp(1.05rem, 3.5vw, 1.35rem)',
                 color: '#39ff14',
                 textShadow: '0 0 6px rgba(57,255,20,0.3)',
                 marginBottom: '0.75rem',
                 lineHeight: 1.3,
+                wordBreak: 'break-word',
             }}>
                 {project.title}
             </h3>
@@ -119,6 +120,7 @@ function ProjectCard({ project, index, isSpan2 }) {
                         fontSize: '0.84rem',
                         color: 'rgba(57,255,20,0.65)',
                         lineHeight: 1.55,
+                        wordBreak: 'break-word',
                     }}>
                         {bullet}
                     </p>
@@ -127,7 +129,7 @@ function ProjectCard({ project, index, isSpan2 }) {
 
             {/* Metrics & Stats */}
             {(project.stats || project.metrics) && (
-                <div className="flex gap-6 mt-auto pt-3 border-t border-green-900/20">
+                <div className="flex flex-wrap gap-4 sm:gap-6 mt-auto pt-3 border-t border-green-900/20">
                     {project.stats ? (
                         project.stats.map((stat, i) => (
                             <MetricDisplay key={i} label={stat.label} value={stat.value} />
@@ -150,7 +152,7 @@ function ProjectCard({ project, index, isSpan2 }) {
 
 export default function ProjectsSection() {
     return (
-        <section id="projects" className="py-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto">
+        <section id="projects" className="py-12 sm:py-16 px-3.5 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto w-full">
             <h2 className="text-center mb-2" style={{
                 fontFamily: "'Share Tech Mono', monospace",
                 fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',

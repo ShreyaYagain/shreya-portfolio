@@ -10,7 +10,7 @@ function CertificateCard({ cert, index, isSpan2 }) {
     return (
         <MotionDiv
             ref={ref}
-            className={`osc-screen p-5 md:p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
+            className={`osc-screen p-4 sm:p-5 md:p-6 relative overflow-hidden flex flex-col justify-between w-full transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
                 isSpan2 ? 'md:col-span-2' : ''
             }`}
             initial={{ opacity: 0, y: 20 }}
@@ -28,8 +28,8 @@ function CertificateCard({ cert, index, isSpan2 }) {
 
             <div>
                 {/* Header row: Issuer chip + Verified badge */}
-                <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                    <span className="tech-badge font-bold tracking-wider">
+                <div className="flex items-center justify-between gap-2.5 mb-3 flex-wrap">
+                    <span className="tech-badge font-bold tracking-wider text-xs">
                         {cert.issuer.toUpperCase()}
                     </span>
 
@@ -51,18 +51,19 @@ function CertificateCard({ cert, index, isSpan2 }) {
                 <h3
                     style={{
                         fontFamily: "'Share Tech Mono', monospace",
-                        fontSize: 'clamp(1rem, 1.4vw, 1.2rem)',
+                        fontSize: 'clamp(1rem, 3vw, 1.2rem)',
                         color: '#39ff14',
                         textShadow: '0 0 4px rgba(57,255,20,0.3)',
                         lineHeight: 1.35,
                         marginBottom: '0.75rem',
+                        wordBreak: 'break-word',
                     }}
                 >
                     {cert.title}
                 </h3>
             </div>
 
-            {/* Bottom action row: optional view button and verification telemetry */}
+            {/* Bottom action row: view button and verification telemetry */}
             <div className="flex items-center justify-between pt-3 mt-4 border-t border-green-900/20">
                 <span
                     style={{
@@ -80,7 +81,7 @@ function CertificateCard({ cert, index, isSpan2 }) {
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="terminal-btn"
+                        className="terminal-btn min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3"
                     >
                         [VIEW ↗]
                     </a>
@@ -97,7 +98,7 @@ export default function CertificatesSection() {
         <section
             id="certificates"
             ref={sectionRef}
-            className="py-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto"
+            className="py-12 sm:py-16 px-3.5 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto w-full"
         >
             <h2
                 className="text-center mb-2"

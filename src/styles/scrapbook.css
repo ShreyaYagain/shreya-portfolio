@@ -146,10 +146,19 @@
     position: relative;
 }
 
-.sketch-card:hover {
-    transform: scale(1.08) rotate(0deg) !important;
-    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.15);
-    z-index: 10;
+@media (hover: hover) and (pointer: fine) {
+    .sketch-card:hover {
+        transform: scale(1.08) rotate(0deg) !important;
+        box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.15);
+        z-index: 10;
+    }
+}
+
+/* Polaroid captions visible on touch devices */
+@media (pointer: coarse) {
+    .sketch-card-caption {
+        opacity: 0.95 !important;
+    }
 }
 
 /* Red accent underlines on links */
@@ -160,8 +169,10 @@
     transition: border-color 0.3s ease;
 }
 
-.red-underline:hover {
-    border-bottom-color: var(--sk-ink);
+@media (hover: hover) {
+    .red-underline:hover {
+        border-bottom-color: var(--sk-ink);
+    }
 }
 
 /* Halftone photo effect */
@@ -179,7 +190,7 @@
 
 @media (max-width: 768px) {
     .scrapbook-section {
-        padding: 2rem 1rem;
+        padding: 2.5rem 1.25rem;
     }
 }
 
@@ -191,69 +202,71 @@ body.modal-open .marquee-right {
 }
 
 /* ═══════════════════════════════════════════ */
-/* ARTIST PENCIL CURSOR (CSS only, no JS loop) */
+/* ARTIST PENCIL CURSOR (CSS only, desktop)    */
 /* ═══════════════════════════════════════════ */
 
-.artist-cursor,
-.artist-theme,
-.artist-cursor *,
-.artist-theme * {
-    cursor: url("/cursors/pencil.svg") 2 30,
-            url("/cursors/pencil-32.png") 2 30,
-            auto;
-    cursor: -webkit-image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
-            url("/cursors/pencil.svg") 2 30,
-            url("/cursors/pencil-32.png") 2 30,
-            auto;
-    cursor: image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
-            url("/cursors/pencil.svg") 2 30,
-            url("/cursors/pencil-32.png") 2 30,
-            auto;
-}
+@media (hover: hover) and (pointer: fine) {
+    .artist-cursor,
+    .artist-theme,
+    .artist-cursor *,
+    .artist-theme * {
+        cursor: url("/cursors/pencil.svg") 2 30,
+                url("/cursors/pencil-32.png") 2 30,
+                auto;
+        cursor: -webkit-image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+                url("/cursors/pencil.svg") 2 30,
+                url("/cursors/pencil-32.png") 2 30,
+                auto;
+        cursor: image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+                url("/cursors/pencil.svg") 2 30,
+                url("/cursors/pencil-32.png") 2 30,
+                auto;
+    }
 
-/* Force pencil cursor over clickable elements (links, buttons, polaroids, cards, tags) */
-.artist-cursor a,
-.artist-theme a,
-.artist-cursor button,
-.artist-theme button,
-.artist-cursor [role="button"],
-.artist-theme [role="button"],
-.artist-cursor .cursor-pointer,
-.artist-theme .cursor-pointer,
-.artist-cursor .sketch-card,
-.artist-theme .sketch-card,
-.artist-cursor a *,
-.artist-theme a *,
-.artist-cursor button *,
-.artist-theme button *,
-.artist-cursor [role="button"] *,
-.artist-theme [role="button"] *,
-.artist-cursor .cursor-pointer *,
-.artist-theme .cursor-pointer *,
-.artist-cursor .sketch-card * {
-    cursor: url("/cursors/pencil.svg") 2 30,
-            url("/cursors/pencil-32.png") 2 30,
-            auto !important;
-    cursor: -webkit-image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
-            url("/cursors/pencil.svg") 2 30,
-            url("/cursors/pencil-32.png") 2 30,
-            auto !important;
-    cursor: image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
-            url("/cursors/pencil.svg") 2 30,
-            url("/cursors/pencil-32.png") 2 30,
-            auto !important;
-}
+    /* Force pencil cursor over clickable elements (links, buttons, polaroids, cards, tags) */
+    .artist-cursor a,
+    .artist-theme a,
+    .artist-cursor button,
+    .artist-theme button,
+    .artist-cursor [role="button"],
+    .artist-theme [role="button"],
+    .artist-cursor .cursor-pointer,
+    .artist-theme .cursor-pointer,
+    .artist-cursor .sketch-card,
+    .artist-theme .sketch-card,
+    .artist-cursor a *,
+    .artist-theme a *,
+    .artist-cursor button *,
+    .artist-theme button *,
+    .artist-cursor [role="button"] *,
+    .artist-theme [role="button"] *,
+    .artist-cursor .cursor-pointer *,
+    .artist-theme .cursor-pointer *,
+    .artist-cursor .sketch-card * {
+        cursor: url("/cursors/pencil.svg") 2 30,
+                url("/cursors/pencil-32.png") 2 30,
+                auto !important;
+        cursor: -webkit-image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+                url("/cursors/pencil.svg") 2 30,
+                url("/cursors/pencil-32.png") 2 30,
+                auto !important;
+        cursor: image-set(url("/cursors/pencil-32.png") 1x, url("/cursors/pencil-64.png") 2x) 2 30,
+                url("/cursors/pencil.svg") 2 30,
+                url("/cursors/pencil-32.png") 2 30,
+                auto !important;
+    }
 
-/* Maintain standard text selection cursor for text inputs, textareas, and editable fields */
-.artist-cursor input[type="text"],
-.artist-theme input[type="text"],
-.artist-cursor input[type="email"],
-.artist-theme input[type="email"],
-.artist-cursor input[type="search"],
-.artist-theme input[type="search"],
-.artist-cursor textarea,
-.artist-theme textarea,
-.artist-cursor [contenteditable="true"],
-.artist-theme [contenteditable="true"] {
-    cursor: text !important;
+    /* Maintain standard text selection cursor for text inputs, textareas, and editable fields */
+    .artist-cursor input[type="text"],
+    .artist-theme input[type="text"],
+    .artist-cursor input[type="email"],
+    .artist-theme input[type="email"],
+    .artist-cursor input[type="search"],
+    .artist-theme input[type="search"],
+    .artist-cursor textarea,
+    .artist-theme textarea,
+    .artist-cursor [contenteditable="true"],
+    .artist-theme [contenteditable="true"] {
+        cursor: text !important;
+    }
 }

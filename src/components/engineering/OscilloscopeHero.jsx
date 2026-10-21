@@ -74,11 +74,13 @@ export default function OscilloscopeHero() {
                 };
 
                 // Primary wave with subtle phosphor glow (continuous open polyline)
+                // Use larger step on mobile (<640px) to reduce sample count for high FPS
+                const sampleStep = w < 640 ? 4 : 2;
                 ctx.save();
                 ctx.shadowColor = '#39ff14';
                 ctx.shadowBlur = 4;
                 ctx.beginPath();
-                for (let x = 0; x <= w; x += 2) {
+                for (let x = 0; x <= w; x += sampleStep) {
                     const y = centerY + amplitude * Math.sin((x / w) * frequency * Math.PI * 2 + phase);
                     if (x === 0) {
                         ctx.moveTo(x, y);
@@ -165,28 +167,28 @@ export default function OscilloscopeHero() {
     }, []);
 
     return (
-        <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-            <div className="osc-screen osc-grid crt-flicker relative w-[90%] max-w-5xl mx-auto p-8 md:p-12 rounded-[4px]" style={{ minHeight: '70vh' }}>
+        <section className="relative w-full min-h-screen min-h-[100dvh] h-auto py-10 sm:py-16 flex flex-col items-center justify-center overflow-hidden">
+            <div className="osc-screen osc-grid crt-flicker relative w-[95%] sm:w-[90%] max-w-5xl mx-auto p-3.5 sm:p-8 md:p-12 rounded-[4px] flex flex-col justify-between" style={{ minHeight: 'min(78vh, 560px)' }}>
                 {/* Channel labels */}
-                <div className="absolute top-4 left-4 flex gap-4 select-none pointer-events-none z-20" style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.75rem' }}>
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex gap-3 sm:gap-4 select-none pointer-events-none z-20 text-[0.7rem] sm:text-xs" style={{ fontFamily: "'Share Tech Mono', monospace" }}>
                     <span className="phosphor-text">CH1</span>
                     <span className="phosphor-text-dim">CH2</span>
                 </div>
 
-                <div className="absolute bottom-4 right-4 phosphor-text-dim select-none pointer-events-none z-20" style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.75rem' }}>
+                <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 phosphor-text-dim select-none pointer-events-none z-20 text-[0.68rem] sm:text-xs" style={{ fontFamily: "'Share Tech Mono', monospace" }}>
                     TIME/DIV: 1μs
                 </div>
 
-                {/* Waveform Canvas with soft edge dissolve and scope clipping */}
-                <div className="absolute inset-0 flex items-center justify-center p-8 overflow-hidden pointer-events-auto z-0">
+                {/* Waveform Canvas with soft edge dissolve and scope clipping — below text */}
+                <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-8 overflow-hidden pointer-events-none md:pointer-events-auto z-0">
                     <canvas
                         ref={canvasRef}
-                        className="w-full h-64 md:h-80 block"
+                        className="w-full h-36 sm:h-56 md:h-80 block"
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}
                         style={{
-                            maskImage: 'linear-gradient(to right, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%)',
-                            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%)',
+                            maskImage: 'linear-gradient(to right, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)',
+                            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)',
                         }}
                     />
                 </div>
@@ -194,14 +196,14 @@ export default function OscilloscopeHero() {
                 {/* Probe readout tooltip */}
                 {probeData && (
                     <div
-                        className="absolute pointer-events-none px-3 py-1.5 rounded z-30"
+                        className="absolute pointer-events-none px-2.5 py-1 sm:px-3 sm:py-1.5 rounded z-30"
                         style={{
                             left: `calc(5% + ${probeData.xPercent * 0.9}%)`,
-                            top: '15%',
-                            background: 'rgba(0,0,0,0.85)',
+                            top: '12%',
+                            background: 'rgba(0,0,0,0.88)',
                             border: '1px solid rgba(57,255,20,0.3)',
                             fontFamily: "'Inconsolata', monospace",
-                            fontSize: '0.8rem',
+                            fontSize: '0.75rem',
                             color: '#39ff14',
                             textShadow: '0 0 4px rgba(57,255,20,0.4)',
                             whiteSpace: 'nowrap',
@@ -211,18 +213,17 @@ export default function OscilloscopeHero() {
                     </div>
                 )}
 
-                {/* Hero text */}
-                <div className="relative z-10 flex flex-col items-center justify-center h-full pointer-events-none select-none" style={{ minHeight: '50vh' }}>
+                {/* Hero text — stacked vertically, perfectly scalable inside the scope */}
+                <div className="relative z-10 flex flex-col items-center justify-center h-full my-auto pointer-events-none select-none py-6 sm:py-8" style={{ minHeight: '44vh' }}>
                     <motion.h1
-                        className="w-full text-center leading-none flex flex-wrap justify-center items-center px-6"
+                        className="w-full text-center leading-tight flex flex-col sm:flex-row justify-center items-center gap-0.5 sm:gap-3 px-1 sm:px-4"
                         style={{
                             fontFamily: "'Wallpoet', monospace",
-                            fontSize: 'clamp(2rem, 5.2vw, 4.8rem)',
+                            fontSize: 'clamp(1.35rem, 5.8vw, 4.8rem)',
                             color: '#39ff14',
                             textShadow: '0 0 16px rgba(7, 12, 7, 0.95), 0 0 30px rgba(7, 12, 7, 0.9), 0 0 10px #39ff14, 0 0 25px rgba(57,255,20,0.25)',
-                            letterSpacing: '0.05em',
+                            letterSpacing: '0.04em',
                             maxWidth: '100%',
-                            padding: '0 24px',
                         }}
                     >
                         <span className="inline-block whitespace-nowrap">
@@ -252,10 +253,10 @@ export default function OscilloscopeHero() {
                     </motion.h1>
 
                     <motion.p
-                        className="mt-4 text-center tracking-widest px-4"
+                        className="mt-3 sm:mt-4 text-center tracking-wider sm:tracking-widest px-2 sm:px-4"
                         style={{
                             fontFamily: "'Share Tech Mono', monospace",
-                            fontSize: 'clamp(0.7rem, 1.5vw, 1rem)',
+                            fontSize: 'clamp(0.68rem, 2.2vw, 1rem)',
                             color: 'rgba(57,255,20,0.7)',
                             textShadow: '0 0 12px rgba(7, 16, 7, 0.95), 0 0 20px rgba(7, 16, 7, 0.9)',
                         }}
@@ -267,9 +268,9 @@ export default function OscilloscopeHero() {
                         <span className="blink ml-1">█</span>
                     </motion.p>
 
-                    {/* Channel readouts with [YEAR: 03] */}
+                    {/* Channel readouts with [YEAR: 03] — readable, wrap gracefully */}
                     <motion.div
-                        className="flex flex-wrap justify-center gap-3 mt-8 pointer-events-auto z-20"
+                        className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mt-5 sm:mt-8 pointer-events-auto z-20"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.2, duration: 0.4 }}
@@ -281,18 +282,17 @@ export default function OscilloscopeHero() {
                         ].map((readout, i) => (
                             <div
                                 key={i}
-                                className="px-4 py-2 rounded"
+                                className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded text-[0.72rem] sm:text-xs md:text-sm"
                                 style={{
-                                    background: 'rgba(7, 16, 7, 0.92)',
+                                    background: 'rgba(7, 16, 7, 0.95)',
                                     backdropFilter: 'blur(4px)',
                                     border: '1px solid rgba(57, 255, 20, 0.25)',
                                     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.7)',
                                     fontFamily: "'Inconsolata', monospace",
-                                    fontSize: '0.8rem',
-                                    color: 'rgba(57,255,20,0.6)',
+                                    color: 'rgba(57,255,20,0.7)',
                                 }}
                             >
-                                [{readout.label}: <span className="phosphor-text">{readout.value}</span>
+                                [{readout.label}: <span className="phosphor-text font-bold">{readout.value}</span>
                                 {readout.dot && <span className="ml-1 inline-block w-2 h-2 rounded-full glow-pulse" style={{ background: '#39ff14', verticalAlign: 'middle' }} />}]
                             </div>
                         ))}
@@ -301,10 +301,10 @@ export default function OscilloscopeHero() {
 
                 {/* Scroll indicator */}
                 <motion.div
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center pointer-events-none select-none z-10"
+                    className="relative text-center pointer-events-none select-none z-10 pt-2 pb-1"
                     style={{
                         fontFamily: "'Share Tech Mono', monospace",
-                        fontSize: '0.75rem',
+                        fontSize: '0.7rem',
                         color: 'rgba(57,255,20,0.4)',
                     }}
                     animate={{ opacity: [0.3, 0.7, 0.3] }}

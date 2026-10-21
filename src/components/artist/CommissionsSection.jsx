@@ -51,12 +51,12 @@ export default function CommissionsSection() {
                 {/* AVAILABILITY: Taped sticky note with hand-drawn circle around 'open' */}
                 {availability && (
                     <MotionDiv
-                        className="relative self-start sm:self-auto px-5 py-3 rounded-[2px] select-none"
+                        className="relative self-center sm:self-auto px-5 py-2.5 sm:py-3 rounded-[2px] select-none"
                         style={{
                             background: '#faf6ee',
                             border: '1px solid rgba(121, 1, 13, 0.12)',
                             boxShadow: '2px 4px 14px rgba(0, 0, 0, 0.05)',
-                            transform: 'rotate(2.5deg)',
+                            transform: 'rotate(1.2deg)',
                         }}
                         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -137,7 +137,7 @@ export default function CommissionsSection() {
                                 background: '#faf6ee',
                                 border: '1px solid rgba(121, 1, 13, 0.09)',
                                 boxShadow: '2px 4px 14px rgba(0, 0, 0, 0.05)',
-                                transform: 'rotate(-1deg)',
+                                transform: 'rotate(-0.8deg)',
                             }}
                             initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
                             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -211,7 +211,7 @@ export default function CommissionsSection() {
                                 background: '#faf6ee',
                                 border: '1px solid rgba(121, 1, 13, 0.09)',
                                 boxShadow: '2px 4px 14px rgba(0, 0, 0, 0.05)',
-                                transform: 'rotate(1.2deg)',
+                                transform: 'rotate(0.8deg)',
                             }}
                             initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
                             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -519,7 +519,7 @@ export default function CommissionsSection() {
                             background: '#faf6ee',
                             border: '1px solid rgba(121, 1, 13, 0.1)',
                             boxShadow: '2px 4px 16px rgba(0, 0, 0, 0.06)',
-                            transform: 'rotate(1.2deg)',
+                            transform: 'rotate(0.8deg)',
                         }}
                         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -589,21 +589,22 @@ export default function CommissionsSection() {
 
             {/* ACTION BUTTONS: 'start a commission' & 'or message me on instagram' */}
             <MotionDiv
-                className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-4 select-none"
+                className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 pt-4 select-none w-full max-w-md sm:max-w-none mx-auto"
                 initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.55 }}
             >
-                {/* Primary Taped Paper Tag Button: 'start a commission' */}
+                {/* Primary Taped Paper Tag Button: 'start a commission' — full width on mobile */}
                 <MotionA
                     href={mailtoUrl}
-                    className="relative px-7 py-3.5 rounded-[2px] cursor-pointer inline-flex items-center gap-2"
+                    className="relative w-full sm:w-auto px-7 py-3.5 rounded-[2px] cursor-pointer inline-flex items-center justify-center gap-2 min-h-[48px]"
                     style={{
                         background: '#faf6ee',
                         border: '1.5px solid var(--sk-red)',
                         boxShadow: '0 3px 10px rgba(121, 1, 13, 0.1)',
-                        transform: 'rotate(-1.2deg)',
+                        transform: 'rotate(-0.8deg)',
                         textDecoration: 'none',
+                        touchAction: 'manipulation',
                     }}
                     whileHover={
                         prefersReducedMotion
@@ -653,12 +654,13 @@ export default function CommissionsSection() {
                         href={instagramUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="red-underline inline-flex items-center gap-1.5 cursor-pointer"
+                        className="red-underline inline-flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] py-1 px-2"
                         style={{
                             fontFamily: "'Caveat', cursive, 'EB Garamond', sans-serif",
                             fontSize: '1.35rem',
                             color: 'var(--sk-ink-mid)',
                             textDecoration: 'none',
+                            touchAction: 'manipulation',
                         }}
                         onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sk-red)')}
                         onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--sk-ink-mid)')}

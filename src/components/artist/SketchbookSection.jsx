@@ -72,7 +72,7 @@ function SketchCard({ artwork, rotation, onOpenLightbox, isDuplicate = false }) 
 
             {/* Bottom Polaroid Strip with Handwritten-style Caption */}
             <div
-                className="mt-2 px-1 flex flex-col justify-center items-center text-center transition-opacity duration-300 select-none"
+                className="sketch-card-caption mt-2 px-1 flex flex-col justify-center items-center text-center transition-opacity duration-300 select-none"
                 style={{
                     minHeight: '40px',
                     opacity: isHovered ? 1 : 0,
@@ -161,9 +161,13 @@ export default function SketchbookSection() {
                 body.modal-open .marquee-container,
                 body.modal-open .marquee-left,
                 body.modal-open .marquee-right,
-                .marquee-container:hover,
                 .marquee-paused {
                     animation-play-state: paused !important;
+                }
+                @media (hover: hover) {
+                    .marquee-container:hover {
+                        animation-play-state: paused !important;
+                    }
                 }
                 @media (prefers-reduced-motion: reduce) {
                     .marquee-left,
@@ -188,61 +192,142 @@ export default function SketchbookSection() {
                 />
             </div>
 
-            {/* Row 1 — left direction: Pieces 01 to 11 */}
-            <div className="relative w-full overflow-hidden py-4">
-                <div className={`marquee-container marquee-left ${isLightboxOpen ? 'marquee-paused' : ''}`}>
-                    {/* Primary set (pieces 01 to 11) */}
-                    {row1Artworks.map((artwork, i) => (
-                        <SketchCard
-                            key={`r1-primary-${artwork.id}`}
-                            artwork={artwork}
-                            rotation={rotations[i % rotations.length]}
-                            onOpenLightbox={() => setLightboxIndex(i)}
-                        />
-                    ))}
-
-                    {/* Seamless infinite loop duplicate (marked aria-hidden) */}
-                    <span aria-hidden="true" className="inline-block">
+            {/* Desktop & Tablet: Continuous Marquee Rows */}
+            <div className="hidden sm:block">
+                {/* Row 1 — left direction: Pieces 01 to 11 */}
+                <div className="relative w-full overflow-hidden py-4">
+                    <div className={`marquee-container marquee-left ${isLightboxOpen ? 'marquee-paused' : ''}`}>
+                        {/* Primary set (pieces 01 to 11) */}
                         {row1Artworks.map((artwork, i) => (
                             <SketchCard
-                                key={`r1-dup-${artwork.id}`}
+                                key={`r1-primary-${artwork.id}`}
                                 artwork={artwork}
                                 rotation={rotations[i % rotations.length]}
                                 onOpenLightbox={() => setLightboxIndex(i)}
-                                isDuplicate={true}
                             />
                         ))}
-                    </span>
+
+                        {/* Seamless infinite loop duplicate (marked aria-hidden) */}
+                        <span aria-hidden="true" className="inline-block">
+                            {row1Artworks.map((artwork, i) => (
+                                <SketchCard
+                                    key={`r1-dup-${artwork.id}`}
+                                    artwork={artwork}
+                                    rotation={rotations[i % rotations.length]}
+                                    onOpenLightbox={() => setLightboxIndex(i)}
+                                    isDuplicate={true}
+                                />
+                            ))}
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <TornPaperDivider />
+                <TornPaperDivider />
 
-            {/* Row 2 — right direction: Pieces 12 to 22 */}
-            <div className="relative w-full overflow-hidden py-4">
-                <div className={`marquee-container marquee-right ${isLightboxOpen ? 'marquee-paused' : ''}`}>
-                    {/* Primary set (pieces 12 to 22) */}
-                    {row2Artworks.map((artwork, i) => (
-                        <SketchCard
-                            key={`r2-primary-${artwork.id}`}
-                            artwork={artwork}
-                            rotation={rotations[(i + 3) % rotations.length]}
-                            onOpenLightbox={() => setLightboxIndex(i + 11)}
-                        />
-                    ))}
-
-                    {/* Seamless infinite loop duplicate (marked aria-hidden) */}
-                    <span aria-hidden="true" className="inline-block">
+                {/* Row 2 — right direction: Pieces 12 to 22 */}
+                <div className="relative w-full overflow-hidden py-4">
+                    <div className={`marquee-container marquee-right ${isLightboxOpen ? 'marquee-paused' : ''}`}>
+                        {/* Primary set (pieces 12 to 22) */}
                         {row2Artworks.map((artwork, i) => (
                             <SketchCard
-                                key={`r2-dup-${artwork.id}`}
+                                key={`r2-primary-${artwork.id}`}
                                 artwork={artwork}
                                 rotation={rotations[(i + 3) % rotations.length]}
                                 onOpenLightbox={() => setLightboxIndex(i + 11)}
-                                isDuplicate={true}
                             />
                         ))}
-                    </span>
+
+                        {/* Seamless infinite loop duplicate (marked aria-hidden) */}
+                        <span aria-hidden="true" className="inline-block">
+                            {row2Artworks.map((artwork, i) => (
+                                <SketchCard
+                                    key={`r2-dup-${artwork.id}`}
+                                    artwork={artwork}
+                                    rotation={rotations[(i + 3) % rotations.length]}
+                                    onOpenLightbox={() => setLightboxIndex(i + 11)}
+                                    isDuplicate={true}
+                                />
+                            ))}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile: 2-column Sketchbook Grid for phones (< 640px) */}
+            <div className="sm:hidden px-3 pt-2 pb-4">
+                <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                    {artworks.map((artwork, idx) => {
+                        const tilts = [-1.2, 1.2, -0.8, 1, -1, 0.8];
+                        const tilt = tilts[idx % tilts.length];
+                        return (
+                            <div
+                                key={`mobile-grid-${artwork.id}`}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View ${artwork.title}, ${artwork.medium}`}
+                                onClick={() => setLightboxIndex(idx)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setLightboxIndex(idx);
+                                    }
+                                }}
+                                className="sketch-card bg-white p-2 pb-2.5 rounded-[2px] shadow-sm select-none cursor-pointer flex flex-col justify-start transition-transform active:scale-95"
+                                style={{
+                                    transform: `rotate(${tilt}deg)`,
+                                    boxShadow: '1px 3px 10px rgba(0,0,0,0.08)',
+                                    touchAction: 'manipulation',
+                                }}
+                            >
+                                {/* Polaroid Square Image Container */}
+                                <div className="w-full aspect-square overflow-hidden bg-[#1a1612] rounded-[1px]">
+                                    <img
+                                        src={artwork.src}
+                                        alt={artwork.alt}
+                                        loading="lazy"
+                                        decoding="async"
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            e.target.style.display = 'none';
+                                            e.target.parentElement.innerHTML = `
+                                                <div style="font-family: 'Caveat', cursive; color: var(--sk-ink-mid); opacity: 0.6; font-size: 0.85rem; text-align: center; padding: 0.5rem; display: flex; align-items: center; justify-content: center; height: 100%;">
+                                                    ${artwork.title}
+                                                </div>
+                                            `;
+                                        }}
+                                    />
+                                </div>
+                                {/* Visible Title and Medium Captions (always visible on mobile touch) */}
+                                <div className="mt-1.5 px-0.5 text-center flex flex-col justify-center">
+                                    <h4
+                                        className="truncate"
+                                        style={{
+                                            fontFamily: "'Caveat', cursive, 'EB Garamond', sans-serif",
+                                            fontSize: '1rem',
+                                            fontWeight: 700,
+                                            color: 'var(--sk-ink)',
+                                            lineHeight: 1.2,
+                                            margin: 0,
+                                        }}
+                                    >
+                                        {artwork.title}
+                                    </h4>
+                                    <p
+                                        className="truncate"
+                                        style={{
+                                            fontFamily: "'Caveat', cursive, 'EB Garamond', sans-serif",
+                                            fontSize: '0.8rem',
+                                            color: 'var(--sk-ink-mid)',
+                                            lineHeight: 1.15,
+                                            margin: '2px 0 0 0',
+                                        }}
+                                    >
+                                        {artwork.medium}
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
 

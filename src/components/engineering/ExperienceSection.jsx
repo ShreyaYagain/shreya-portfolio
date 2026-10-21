@@ -10,14 +10,14 @@ function ExperienceNode({ entry, index, total }) {
     return (
         <MotionDiv
             ref={ref}
-            className="relative pl-8 sm:pl-12 md:pl-16 pb-12 last:pb-2"
+            className="relative pl-7 sm:pl-12 md:pl-16 pb-10 sm:pb-12 last:pb-2"
             initial={{ opacity: 0, x: -24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.45, delay: index * 0.12 }}
         >
             {/* Timeline node pad / probe point */}
             <div
-                className="absolute left-0 top-6 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-500 z-10"
+                className="absolute left-0 top-5 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-500 z-10"
                 style={{
                     borderColor: inView ? '#39ff14' : 'rgba(57,255,20,0.25)',
                     backgroundColor: '#070c07',
@@ -25,7 +25,7 @@ function ExperienceNode({ entry, index, total }) {
                 }}
             >
                 <div
-                    className="w-2 h-2 rounded-full transition-all duration-500"
+                    className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-500"
                     style={{
                         backgroundColor: inView ? '#39ff14' : 'rgba(57,255,20,0.3)',
                         boxShadow: inView ? '0 0 8px #39ff14' : 'none',
@@ -35,7 +35,7 @@ function ExperienceNode({ entry, index, total }) {
 
             {/* Horizontal trace connector from vertical rail into card */}
             <div
-                className="absolute left-5 top-[33px] h-[1.5px] transition-all duration-500 hidden sm:block"
+                className="absolute left-4 sm:left-5 top-[27px] sm:top-[33px] h-[1.5px] transition-all duration-500 hidden sm:block"
                 style={{
                     width: 'calc(2rem - 6px)',
                     background: inView
@@ -44,8 +44,8 @@ function ExperienceNode({ entry, index, total }) {
                 }}
             />
 
-            {/* Experience Card */}
-            <div className="osc-screen p-5 sm:p-6 md:p-8 relative overflow-hidden flex flex-col transition-all duration-300 hover:border-green-400/40 hover:shadow-[0_0_20px_rgba(57,255,20,0.06)]">
+            {/* Experience Card — full width */}
+            <div className="osc-screen p-4 sm:p-6 md:p-8 relative overflow-hidden flex flex-col w-full transition-all duration-300 hover:border-green-400/40 hover:shadow-[0_0_20px_rgba(57,255,20,0.06)]">
                 {/* Top scan accent line */}
                 <div
                     className="absolute top-0 left-0 right-0 h-1 waveform-scan"
@@ -56,19 +56,20 @@ function ExperienceNode({ entry, index, total }) {
                 />
 
                 {/* Header row: role title + log badge */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 mb-2">
                     <h3
                         style={{
                             fontFamily: "'Share Tech Mono', monospace",
-                            fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                            fontSize: 'clamp(1.05rem, 3.2vw, 1.35rem)',
                             color: '#39ff14',
                             textShadow: '0 0 4px rgba(57,255,20,0.35)',
                             lineHeight: 1.3,
+                            wordBreak: 'break-word',
                         }}
                     >
                         {entry.role}
                     </h3>
-                    <div className="channel-label self-start sm:self-auto flex items-center gap-2">
+                    <div className="channel-label self-start sm:self-auto flex items-center gap-2 text-xs">
                         <span className="phosphor-text font-bold">LOG_0{index + 1}</span>
                         <span className="text-green-900/40">/</span>
                         <span>0{total}</span>
@@ -77,10 +78,9 @@ function ExperienceNode({ entry, index, total }) {
 
                 {/* Company, dates, and location */}
                 <div
-                    className="flex flex-wrap items-center gap-2 mb-4"
+                    className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4 text-xs sm:text-sm"
                     style={{
                         fontFamily: "'Inconsolata', monospace",
-                        fontSize: '0.86rem',
                         color: 'rgba(57,255,20,0.65)',
                     }}
                 >
@@ -99,7 +99,7 @@ function ExperienceNode({ entry, index, total }) {
 
                 {/* Tech tag chips */}
                 {entry.tags && entry.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-5">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                         {entry.tags.map((tag) => (
                             <span key={tag} className="tech-badge">{tag}</span>
                         ))}
@@ -107,16 +107,17 @@ function ExperienceNode({ entry, index, total }) {
                 )}
 
                 {/* Bullet points with terminal '>_' prefix */}
-                <div className="space-y-2.5 mb-4">
+                <div className="space-y-2 mb-4">
                     {entry.bullets.map((bullet, i) => (
                         <p
                             key={i}
                             className="terminal-bullet"
                             style={{
                                 fontFamily: "'Inconsolata', monospace",
-                                fontSize: '0.86rem',
+                                fontSize: '0.84rem',
                                 color: 'rgba(57,255,20,0.7)',
                                 lineHeight: 1.6,
+                                wordBreak: 'break-word',
                             }}
                         >
                             {bullet}
@@ -126,10 +127,9 @@ function ExperienceNode({ entry, index, total }) {
 
                 {/* Bottom telemetry line */}
                 <div
-                    className="flex items-center justify-between pt-3 mt-2 border-t border-green-900/20"
+                    className="flex flex-wrap items-center justify-between gap-1 pt-3 mt-2 border-t border-green-900/20 text-[0.68rem] sm:text-xs"
                     style={{
                         fontFamily: "'Share Tech Mono', monospace",
-                        fontSize: '0.7rem',
                         color: 'rgba(57,255,20,0.35)',
                         letterSpacing: '0.05em',
                     }}
@@ -149,7 +149,7 @@ export default function ExperienceSection() {
         <section
             id="experience"
             ref={sectionRef}
-            className="py-16 px-4 sm:px-6 md:px-8 max-w-[1100px] mx-auto"
+            className="py-12 sm:py-16 px-3.5 sm:px-6 md:px-8 max-w-[1100px] mx-auto w-full"
         >
             <h2
                 className="text-center mb-2"
@@ -163,18 +163,17 @@ export default function ExperienceSection() {
                 {'> EXPERIENCE.log()'}
             </h2>
             <p
-                className="text-center mb-12 phosphor-text-dim"
+                className="text-center mb-10 phosphor-text-dim text-xs sm:text-sm"
                 style={{
                     fontFamily: "'Inconsolata', monospace",
-                    fontSize: '0.85rem',
                 }}
             >
                 reading system logs...
             </p>
 
             <div className="relative">
-                {/* Vertical glowing trace rail */}
-                <div className="absolute left-[9px] top-6 bottom-6 w-[2px]">
+                {/* Vertical glowing trace rail near left edge */}
+                <div className="absolute left-[7px] top-5 bottom-5 w-[1.5px]">
                     <MotionDiv
                         className="w-full h-full bg-gradient-to-b from-[#39ff14]/70 via-[#39ff14]/30 to-green-950/20"
                         style={{ originY: 0 }}

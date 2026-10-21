@@ -323,9 +323,9 @@ export default function LyricVideosSection() {
                     ))}
                 </div>
 
-                {/* Dot indicators */}
+                {/* Dot indicators with accessible 44px tap targets */}
                 <div
-                    className="flex justify-center items-center gap-2.5 mt-3 select-none"
+                    className="flex justify-center items-center gap-1 mt-2 select-none"
                     aria-label="Lyric video slide navigation"
                 >
                     {lyricVideos.map((video, idx) => (
@@ -334,10 +334,11 @@ export default function LyricVideosSection() {
                             type="button"
                             onClick={() => scrollToCard(idx)}
                             aria-label={`Go to video ${idx + 1}`}
-                            className="cursor-pointer p-1"
+                            className="cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center p-0"
                             style={{
                                 background: 'transparent',
                                 border: 'none',
+                                touchAction: 'manipulation',
                             }}
                         >
                             <span
@@ -406,8 +407,11 @@ export default function LyricVideosSection() {
                             position: 'fixed',
                             top: 0,
                             left: 0,
-                            width: '100vw',
-                            height: '100dvh',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            height: '100vh',
+                            minHeight: '100dvh',
                             zIndex: 99999,
                             background: 'rgba(10, 8, 6, 0.9)',
                             backdropFilter: 'blur(8px)',
@@ -425,8 +429,10 @@ export default function LyricVideosSection() {
                             type="button"
                             onClick={() => setActiveVideo(null)}
                             aria-label="Close video player"
-                            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[100000] flex items-center justify-center rounded-full cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 shadow-2xl"
+                            className="fixed z-[100000] flex items-center justify-center rounded-full cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 shadow-2xl"
                             style={{
+                                top: 'max(16px, env(safe-area-inset-top, 16px))',
+                                right: 'max(16px, env(safe-area-inset-right, 16px))',
                                 width: '44px',
                                 height: '44px',
                                 background: '#f7f4ed',
@@ -444,7 +450,7 @@ export default function LyricVideosSection() {
                         <div
                             className="relative flex flex-col items-center w-full"
                             style={{
-                                width: 'min(92vw, 900px, calc(88dvh * 4 / 3))',
+                                width: 'min(94vw, 900px, calc(76dvh * 4 / 3))',
                                 maxWidth: '100%',
                             }}
                             onClick={(e) => e.stopPropagation()}
@@ -455,7 +461,7 @@ export default function LyricVideosSection() {
                                 className="relative w-full flex items-center justify-center bg-black rounded-[6px] overflow-hidden"
                                 style={{
                                     aspectRatio: activeVideo.aspectRatio || '4/3',
-                                    maxHeight: '88dvh',
+                                    maxHeight: '76dvh',
                                     boxShadow:
                                         '0 25px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08)',
                                 }}

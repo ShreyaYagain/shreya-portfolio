@@ -30,11 +30,11 @@ export default function ProcessSection({ isActive }) {
             />
 
             <div
-                className="tape-strip p-4 mx-auto"
+                className="tape-strip p-3 sm:p-4 mx-auto max-w-full"
                 style={{
                     background: 'var(--sk-paper)',
                     boxShadow: '2px 3px 12px rgba(0,0,0,0.08)',
-                    transform: 'rotate(-1deg)',
+                    transform: 'rotate(-0.8deg)',
                 }}
             >
                 <div style={{ aspectRatio: '16/9', background: '#111', overflow: 'hidden', borderRadius: '2px' }}>

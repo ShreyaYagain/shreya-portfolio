@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { aboutParagraphs } from '../../data/artData';
@@ -6,7 +5,6 @@ import SketchbookAnimation from './AboutSection/SketchbookAnimation';
 
 export default function AboutSection() {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
-    const underlineRef = useRef(null);
 
     return (
         <section ref={ref} className="scrapbook-section max-w-4xl mx-auto">

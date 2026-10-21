@@ -10,7 +10,7 @@ function ActivityCard({ entry, index, isSpan2 }) {
     return (
         <MotionDiv
             ref={ref}
-            className={`osc-screen p-5 md:p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
+            className={`osc-screen p-4 sm:p-5 md:p-6 relative overflow-hidden flex flex-col justify-between w-full transition-all duration-300 hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(57,255,20,0.08)] ${
                 isSpan2 ? 'md:col-span-2' : ''
             }`}
             initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ function ActivityCard({ entry, index, isSpan2 }) {
 
             <div>
                 {/* Header channel tag */}
-                <div className="channel-label mb-2 flex items-center justify-between">
+                <div className="channel-label mb-2 flex items-center justify-between text-xs">
                     <span className="phosphor-text font-bold">ACT_MOD_0{index + 1}</span>
                     <span className="text-green-900/40">STATUS: LOGGED</span>
                 </div>
@@ -37,11 +37,12 @@ function ActivityCard({ entry, index, isSpan2 }) {
                 <h3
                     style={{
                         fontFamily: "'Share Tech Mono', monospace",
-                        fontSize: 'clamp(1.05rem, 1.5vw, 1.3rem)',
+                        fontSize: 'clamp(1.05rem, 3.2vw, 1.3rem)',
                         color: '#39ff14',
                         textShadow: '0 0 4px rgba(57,255,20,0.3)',
                         lineHeight: 1.3,
                         marginBottom: '0.35rem',
+                        wordBreak: 'break-word',
                     }}
                 >
                     {entry.title}
@@ -49,10 +50,9 @@ function ActivityCard({ entry, index, isSpan2 }) {
 
                 {/* Organization and Dates line */}
                 <div
-                    className="flex flex-wrap items-center gap-2 mb-4"
+                    className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4 text-xs sm:text-sm"
                     style={{
                         fontFamily: "'Inconsolata', monospace",
-                        fontSize: '0.85rem',
                         color: 'rgba(57,255,20,0.65)',
                     }}
                 >
@@ -81,6 +81,7 @@ function ActivityCard({ entry, index, isSpan2 }) {
                                 fontSize: '0.86rem',
                                 color: 'rgba(57,255,20,0.72)',
                                 lineHeight: 1.6,
+                                wordBreak: 'break-word',
                             }}
                         >
                             {bullet}
@@ -91,7 +92,7 @@ function ActivityCard({ entry, index, isSpan2 }) {
 
             {/* Optional amber glowing stat chips (for volunteering) */}
             {entry.statChips && entry.statChips.length > 0 && (
-                <div className="flex flex-wrap gap-2.5 pt-3 mt-2 border-t border-green-900/20">
+                <div className="flex flex-wrap gap-2 pt-3 mt-2 border-t border-green-900/20">
                     {entry.statChips.map((chip) => (
                         <span
                             key={chip}
@@ -121,7 +122,7 @@ export default function ActivitiesSection() {
         <section
             id="activities"
             ref={sectionRef}
-            className="py-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto"
+            className="py-12 sm:py-16 px-3.5 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto w-full"
         >
             <h2
                 className="text-center mb-2"
@@ -135,10 +136,9 @@ export default function ActivitiesSection() {
                 {'> ACTIVITIES.log()'}
             </h2>
             <p
-                className="text-center mb-10 phosphor-text-dim"
+                className="text-center mb-10 phosphor-text-dim text-xs sm:text-sm"
                 style={{
                     fontFamily: "'Inconsolata', monospace",
-                    fontSize: '0.85rem',
                 }}
             >
                 loading extracurricular modules...

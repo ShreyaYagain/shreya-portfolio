@@ -34,10 +34,21 @@ export default function LogicGateEgg() {
                 <svg viewBox="0 0 400 200" className="w-full max-w-md mx-auto" style={{ maxHeight: '180px' }}>
                     {/* Input A */}
                     <g
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Toggle Curiosity input, currently ${inputA ? '1' : '0'}`}
                         onClick={() => setInputA(!inputA)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setInputA(!inputA);
+                            }
+                        }}
                         className="cursor-pointer"
                         style={{ cursor: 'pointer' }}
                     >
+                        {/* Expanded touch target rect */}
+                        <rect x="5" y="25" width="80" height="65" fill="transparent" />
                         <rect x="20" y="40" width="50" height="30" rx="3"
                             fill={inputA ? 'rgba(57,255,20,0.15)' : 'rgba(57,255,20,0.03)'}
                             stroke={inputA ? '#39ff14' : 'rgba(57,255,20,0.2)'}
@@ -61,10 +72,21 @@ export default function LogicGateEgg() {
 
                     {/* Input B */}
                     <g
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Toggle Hardware input, currently ${inputB ? '1' : '0'}`}
                         onClick={() => setInputB(!inputB)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setInputB(!inputB);
+                            }
+                        }}
                         className="cursor-pointer"
                         style={{ cursor: 'pointer' }}
                     >
+                        {/* Expanded touch target rect */}
+                        <rect x="5" y="105" width="80" height="65" fill="transparent" />
                         <rect x="20" y="120" width="50" height="30" rx="3"
                             fill={inputB ? 'rgba(57,255,20,0.15)' : 'rgba(57,255,20,0.03)'}
                             stroke={inputB ? '#39ff14' : 'rgba(57,255,20,0.2)'}

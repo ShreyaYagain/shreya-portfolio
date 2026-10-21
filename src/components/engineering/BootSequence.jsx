@@ -70,6 +70,20 @@ export default function BootSequence() {
         }, 2200);
         timersRef.current.push(endTimer);
 
+        // Fail-safe timer: absolute hard limit so user is NEVER blocked (3200ms)
+        const failsafeTimer = setTimeout(() => {
+            handleSkip();
+        }, 3200);
+        timersRef.current.push(failsafeTimer);
+
+        // Visibility change / tab switch fail-safe
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                handleSkip();
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
         // Keydown listener to skip on any key
         const handleKeyDown = (e) => {
             e.preventDefault();
@@ -81,6 +95,7 @@ export default function BootSequence() {
             timersRef.current.forEach(clearTimeout);
             timersRef.current = [];
             clearInterval(progressInterval);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [isVisible, handleSkip]);
@@ -89,36 +104,39 @@ export default function BootSequence() {
         <AnimatePresence>
             {isVisible && (
                 <MotionDiv
-                    className="fixed inset-0 z-[9999] bg-[#070c07] flex flex-col items-center justify-center p-4 sm:p-6 cursor-pointer select-none tech-cursor"
+                    className="fixed inset-0 z-[9999] bg-[#070c07] flex flex-col items-center justify-center p-3 sm:p-6 cursor-pointer select-none tech-cursor min-h-screen min-h-[100dvh] h-[100dvh] w-full overflow-hidden"
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.45, ease: 'easeInOut' }}
                     onClick={handleSkip}
                 >
-                    {/* Corner Skip Button */}
+                    {/* Corner Skip Button with 44px+ touch target & safe area insets */}
                     <button
                         type="button"
                         onClick={(e) => {
                             e.stopPropagation();
                             handleSkip();
                         }}
-                        className="terminal-btn absolute top-6 right-6"
+                        aria-label="Skip boot sequence"
+                        className="terminal-btn absolute min-h-[44px] min-w-[70px] flex items-center justify-center"
                         style={{
+                            top: 'max(14px, env(safe-area-inset-top, 14px))',
+                            right: 'max(14px, env(safe-area-inset-right, 14px))',
                             fontFamily: "'Share Tech Mono', monospace",
-                            fontSize: '0.8rem',
-                            padding: '0.35rem 0.75rem',
+                            fontSize: '0.82rem',
+                            padding: '0.4rem 0.85rem',
                         }}
                     >
-                        [SKIP]
+                        [SKIP ✕]
                     </button>
 
                     {/* Terminal Window Box */}
                     <div
-                        className="w-full max-w-lg p-6 sm:p-8 rounded border border-[rgba(57,255,20,0.3)] bg-[rgba(11,24,11,0.92)] shadow-[0_0_35px_rgba(57,255,20,0.08)] relative overflow-hidden"
+                        className="w-[94%] max-w-lg p-5 sm:p-8 rounded border border-[rgba(57,255,20,0.3)] bg-[rgba(11,24,11,0.92)] shadow-[0_0_35px_rgba(57,255,20,0.08)] relative overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Terminal Header Bar */}
-                        <div className="flex items-center justify-between pb-3 mb-5 border-b border-green-900/30">
+                        <div className="flex items-center justify-between pb-3 mb-4 sm:mb-5 border-b border-green-900/30">
                             <span
                                 style={{
                                     fontFamily: "'Share Tech Mono', monospace",
@@ -140,14 +158,15 @@ export default function BootSequence() {
                             </span>
                         </div>
 
-                        {/* Sequenced Text Lines */}
+                        {/* Sequenced Text Lines — wrap without overflow */}
                         <div
-                            className="space-y-3 min-h-[120px]"
+                            className="space-y-2.5 sm:space-y-3 min-h-[110px] break-words"
                             style={{
                                 fontFamily: "'Share Tech Mono', monospace",
-                                fontSize: 'clamp(0.85rem, 2vw, 0.98rem)',
+                                fontSize: 'clamp(0.8rem, 2.2vw, 0.98rem)',
                                 color: '#39ff14',
                                 letterSpacing: '0.04em',
+                                overflowWrap: 'anywhere',
                             }}
                         >
                             {BOOT_LINES.slice(0, visibleLineCount).map((line, idx) => (
@@ -168,16 +187,16 @@ export default function BootSequence() {
                         </div>
 
                         {/* Thin Progress Bar */}
-                        <div className="mt-6">
+                        <div className="mt-5 sm:mt-6">
                             <div className="h-[2px] w-full bg-[rgba(57,255,20,0.15)] rounded-full overflow-hidden">
                                 <div
                                     className="h-full bg-[#39ff14] shadow-[0_0_8px_#39ff14] transition-all duration-75 ease-linear"
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
-                            <div className="flex justify-between items-center mt-2 text-[0.68rem] text-green-900/50 font-mono">
-                                <span className="text-[rgba(57,255,20,0.4)]">
-                                    PRESS ANY KEY OR CLICK TO SKIP
+                            <div className="flex flex-wrap justify-between items-center gap-1 mt-2 text-[0.65rem] sm:text-[0.68rem] text-green-900/50 font-mono">
+                                <span className="text-[rgba(57,255,20,0.5)]">
+                                    TAP ANYWHERE TO SKIP
                                 </span>
                                 <span className="text-[#39ff14]">
                                     {Math.min(100, Math.round(progress))}%

@@ -13,17 +13,48 @@
 }
 
 html {
+  font-size: 16px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: #070c07;
   color: #39ff14;
   transition: background-color 0.3s ease, color 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  overflow-x: clip;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+/* Ensure long words, URLs and emails break gracefully across viewports */
+h1, h2, h3, h4, h5, h6, p, a, span, li, blockquote {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Tappable elements: remove tap delay and highlight flash */
+button,
+a,
+[role="button"],
+input,
+select,
+textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body.art-mode {
@@ -40,7 +71,6 @@ body.art-mode,
 :root:has(body.art-mode) {
   --scrollbar-thumb: #79010d;
   --scrollbar-track: #f0ebe1;
-  /* paper color */
 }
 
 html {
@@ -83,10 +113,10 @@ body.art-mode ::selection,
 .page-wrapper {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 @keyframes nameWhisper {
-
   0%,
   90%,
   100% {

@@ -42,13 +42,18 @@ export default function FlipToggle() {
         const nextFlipped = !isFlipped;
         const targetSide = nextFlipped ? 'art' : 'tech';
 
-        // Check prefers-reduced-motion
+        // Check prefers-reduced-motion and small screens (< 768px)
         const prefersReducedMotion =
             typeof window !== 'undefined' &&
             window.matchMedia &&
             window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (prefersReducedMotion) {
+        const isMobile =
+            typeof window !== 'undefined' &&
+            window.innerWidth < 768;
+
+        // On mobile or reduced motion: instant/fade transition without 3D rotation
+        if (prefersReducedMotion || isMobile) {
             setIsFlipped(nextFlipped);
             setRenderedSide(targetSide);
             document.body.classList.toggle('art-mode', nextFlipped);
@@ -59,13 +64,10 @@ export default function FlipToggle() {
             return;
         }
 
-        // Start 3D rotation
+        // Desktop: Start 3D rotation
         setIsFlipped(nextFlipped);
 
         // At midpoint (300ms, card at 90° edge-on, flash at peak):
-        // 1. Swap the conditionally rendered component tree
-        // 2. Reset scroll position cleanly under the white flash
-        // 3. Switch body theme class
         midpointTimeoutRef.current = setTimeout(() => {
             setRenderedSide(targetSide);
             document.body.classList.toggle('art-mode', nextFlipped);
@@ -77,6 +79,8 @@ export default function FlipToggle() {
             setShowFlash(false);
         }, 600);
     };
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     return (
         <>
@@ -98,60 +102,60 @@ export default function FlipToggle() {
                     )}
                 </AnimatePresence>
 
-            <MotionDiv
-                className={styles.card}
-                animate={{ rotateY: isFlipped ? 180 : 0 }}
-                transition={{
-                    type: 'spring',
-                    stiffness: 55,
-                    damping: 14,
-                    mass: 1.2,
-                }}
-                onAnimationComplete={() => {
-                    setIsAnimating(false);
-                    setShowFlash(false);
-                    const finalSide = isFlipped ? 'art' : 'tech';
-                    setRenderedSide(finalSide);
-                    document.body.classList.toggle('art-mode', isFlipped);
-                    setIsTechOverlayActive(!isFlipped);
-                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                }}
-                style={{ transformStyle: 'preserve-3d' }}
-            >
-                {/* Front — Engineering (mounted ONLY when in tech mode) */}
-                {renderedSide === 'tech' && (
-                    <div
-                        key="tech-front"
-                        style={{
-                            backfaceVisibility: 'hidden',
-                            WebkitBackfaceVisibility: 'hidden',
-                            width: '100%',
-                            minHeight: '100vh',
-                            position: 'relative',
-                        }}
-                    >
-                        <EngineeringSide isActive={isTechOverlayActive} />
-                    </div>
-                )}
+                <MotionDiv
+                    className={styles.card}
+                    animate={{ rotateY: isMobile ? 0 : (isFlipped ? 180 : 0) }}
+                    transition={{
+                        type: 'spring',
+                        stiffness: 55,
+                        damping: 14,
+                        mass: 1.2,
+                    }}
+                    onAnimationComplete={() => {
+                        setIsAnimating(false);
+                        setShowFlash(false);
+                        const finalSide = isFlipped ? 'art' : 'tech';
+                        setRenderedSide(finalSide);
+                        document.body.classList.toggle('art-mode', isFlipped);
+                        setIsTechOverlayActive(!isFlipped);
+                        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                    }}
+                    style={{ transformStyle: isMobile ? 'flat' : 'preserve-3d' }}
+                >
+                    {/* Front — Engineering (mounted ONLY when in tech mode) */}
+                    {renderedSide === 'tech' && (
+                        <div
+                            key="tech-front"
+                            style={{
+                                backfaceVisibility: isMobile ? 'visible' : 'hidden',
+                                WebkitBackfaceVisibility: isMobile ? 'visible' : 'hidden',
+                                width: '100%',
+                                minHeight: '100dvh',
+                                position: 'relative',
+                            }}
+                        >
+                            <EngineeringSide isActive={isTechOverlayActive} />
+                        </div>
+                    )}
 
-                {/* Back — Art (mounted ONLY when in art mode) */}
-                {renderedSide === 'art' && (
-                    <div
-                        key="art-back"
-                        style={{
-                            backfaceVisibility: 'hidden',
-                            WebkitBackfaceVisibility: 'hidden',
-                            width: '100%',
-                            minHeight: '100vh',
-                            position: 'relative',
-                            transform: 'rotateY(180deg)',
-                        }}
-                    >
-                        <ArtSide isActive={true} />
-                    </div>
-                )}
-            </MotionDiv>
-        </div>
+                    {/* Back — Art (mounted ONLY when in art mode) */}
+                    {renderedSide === 'art' && (
+                        <div
+                            key="art-back"
+                            style={{
+                                backfaceVisibility: isMobile ? 'visible' : 'hidden',
+                                WebkitBackfaceVisibility: isMobile ? 'visible' : 'hidden',
+                                width: '100%',
+                                minHeight: '100dvh',
+                                position: 'relative',
+                                transform: isMobile ? 'none' : 'rotateY(180deg)',
+                            }}
+                        >
+                            <ArtSide isActive={true} />
+                        </div>
+                    )}
+                </MotionDiv>
+            </div>
         </>
     );
 }

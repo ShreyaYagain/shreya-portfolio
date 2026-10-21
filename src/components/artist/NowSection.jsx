@@ -143,24 +143,27 @@ function DustyRoseWashiTape({ angle = -1 }) {
 }
 
 function StickyNoteCard({ item, index, inView, shouldReduceMotion }) {
+    // Gentle rotation clamped to ±1.2deg so notes never protrude or clip on mobile
+    const tilt = Math.min(Math.max(item.tilt, -1.2), 1.2);
+
     return (
         <MotionDiv
-            className={`relative p-5 sm:p-5 rounded-[2px] flex flex-col items-center justify-between min-h-[150px] sm:min-h-[165px] transition-shadow duration-300 cursor-default select-none ${
+            className={`relative p-4 sm:p-5 rounded-[2px] flex flex-col items-center justify-between min-h-[145px] sm:min-h-[165px] transition-shadow duration-300 cursor-default select-none ${
                 index === 4 ? 'col-span-2 sm:col-span-1 max-w-[210px] sm:max-w-none mx-auto w-full' : ''
             }`}
             style={{
                 background: item.bg,
                 border: `1px solid ${item.border}`,
                 boxShadow: '0 2px 8px rgba(26, 18, 8, 0.05), 0 1px 2px rgba(26, 18, 8, 0.03)',
-                transform: `rotate(${item.tilt}deg)`,
+                transform: `rotate(${tilt}deg)`,
                 overflow: 'visible',
             }}
             initial={
                 shouldReduceMotion
-                    ? { opacity: 1, y: 0, rotate: item.tilt }
-                    : { opacity: 0, y: -26, rotate: item.tilt * 1.3 }
+                    ? { opacity: 1, y: 0, rotate: tilt }
+                    : { opacity: 0, y: -26, rotate: tilt * 1.2 }
             }
-            animate={inView ? { opacity: 1, y: 0, rotate: item.tilt } : {}}
+            animate={inView ? { opacity: 1, y: 0, rotate: tilt } : {}}
             transition={{
                 type: 'spring',
                 stiffness: 220,
@@ -171,7 +174,7 @@ function StickyNoteCard({ item, index, inView, shouldReduceMotion }) {
                 shouldReduceMotion
                     ? {}
                     : {
-                          y: -8,
+                          y: -6,
                           rotate: 0,
                           scale: 1.03,
                           boxShadow: '0 12px 24px rgba(26, 18, 8, 0.1), 0 3px 6px rgba(26, 18, 8, 0.04)',
@@ -179,22 +182,22 @@ function StickyNoteCard({ item, index, inView, shouldReduceMotion }) {
                       }
             }
         >
-            <DustyRoseWashiTape angle={item.tapeAngle} />
+            <DustyRoseWashiTape angle={Math.min(Math.max(item.tapeAngle, -1.5), 1.5)} />
 
             {/* Doodle Header */}
-            <div className="pt-2 text-[var(--sk-red)] flex items-center justify-center">
+            <div className="pt-1.5 text-[var(--sk-red)] flex items-center justify-center">
                 <NoteDoodle doodle={item.doodle} />
             </div>
 
-            {/* Note Content Text with handwritten font matching margin notes (not bolder), never clipped */}
-            <div className="my-auto py-2 w-full text-center" style={{ overflow: 'visible' }}>
+            {/* Note Content Text with handwritten font matching margin notes, never clipped */}
+            <div className="my-auto py-1.5 w-full text-center" style={{ overflow: 'visible' }}>
                 <p
                     style={{
                         fontFamily: "'Caveat', cursive, sans-serif",
-                        fontSize: 'clamp(1.25rem, 2.3vw, 1.45rem)',
+                        fontSize: 'clamp(1.15rem, 2.3vw, 1.45rem)',
                         fontWeight: 400,
                         color: 'var(--sk-ink)',
-                        lineHeight: 1.4,
+                        lineHeight: 1.35,
                         margin: 0,
                         wordBreak: 'break-word',
                     }}

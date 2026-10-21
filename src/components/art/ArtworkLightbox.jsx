@@ -92,8 +92,10 @@ export default function ArtworkLightbox({ artworks, currentIndex, isOpen, onClos
                 type="button"
                 onClick={onClose}
                 aria-label="Close lightbox"
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-[#f2ede3] text-[#1a1208] hover:bg-[#79010d] hover:text-[#f2ede3] transition-colors shadow-lg cursor-pointer"
+                className="absolute z-20 w-11 h-11 flex items-center justify-center rounded-full bg-[#f2ede3] text-[#1a1208] hover:bg-[#79010d] hover:text-[#f2ede3] transition-colors shadow-lg cursor-pointer"
                 style={{
+                    top: 'max(16px, env(safe-area-inset-top, 16px))',
+                    right: 'max(16px, env(safe-area-inset-right, 16px))',
                     fontFamily: "'Share Tech Mono', monospace",
                     fontSize: '1.25rem',
                 }}
@@ -131,7 +133,7 @@ export default function ArtworkLightbox({ artworks, currentIndex, isOpen, onClos
 
             {/* Polaroid Modal Card */}
             <div
-                className="relative max-w-2xl w-full max-h-[92vh] flex flex-col items-center bg-[#faf7f2] p-4 sm:p-6 rounded shadow-2xl overflow-hidden border border-[#e8e2d4]"
+                className="relative max-w-2xl w-full max-h-[88dvh] flex flex-col items-center bg-[#faf7f2] p-3.5 sm:p-6 rounded shadow-2xl overflow-y-auto sm:overflow-hidden border border-[#e8e2d4]"
                 style={{
                     transform: 'rotate(-0.5deg)',
                 }}
@@ -153,9 +155,10 @@ export default function ArtworkLightbox({ artworks, currentIndex, isOpen, onClos
                         src={currentArtwork.src}
                         alt={currentArtwork.alt}
                         decoding="async"
-                        className="max-h-[62vh] sm:max-h-[68vh] w-auto max-w-full object-contain mx-auto transition-opacity duration-200"
+                        className="max-h-[52dvh] sm:max-h-[66vh] w-auto max-w-full object-contain mx-auto transition-opacity duration-200"
                         style={{
                             boxShadow: '0 2px 12px rgba(0,0,0,0.12)',
+                            touchAction: 'pan-y pinch-zoom',
                         }}
                     />
                 </div>

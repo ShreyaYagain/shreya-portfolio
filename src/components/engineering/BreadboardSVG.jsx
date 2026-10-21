@@ -2,26 +2,32 @@ import { useState } from 'react';
 
 // BreadboardSVG.jsx
 // Realistic PCB / Schematic Interactive Circuit Diagram
-// Props: onHover(categoryName), onLeave()
+// Props: onHover(categoryName), onLeave(), activeCategory, onSelect(categoryName)
 
-export default function BreadboardSVG({ onHover, onLeave }) {
-  const [hovered, setHovered] = useState(null);
+export default function BreadboardSVG({ onHover, onLeave, activeCategory, onSelect }) {
+  const [internalHover, setInternalHover] = useState(null);
+
+  const hovered = activeCategory || internalHover;
 
   const handleEnter = (category) => {
-    setHovered(category);
+    setInternalHover(category);
     if (onHover) onHover(category);
   };
 
   const handleLeave = () => {
-    setHovered(null);
+    setInternalHover(null);
     if (onLeave) onLeave();
   };
 
   const handleClick = (category) => {
-    if (hovered === category) {
-      handleLeave();
+    if (onSelect) {
+      onSelect(activeCategory === category ? null : category);
     } else {
-      handleEnter(category);
+      if (internalHover === category) {
+        handleLeave();
+      } else {
+        handleEnter(category);
+      }
     }
   };
 

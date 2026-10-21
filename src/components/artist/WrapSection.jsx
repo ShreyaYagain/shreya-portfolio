@@ -27,11 +27,11 @@ export default function WrapSection() {
                     style={{
                         fontFamily: "'Permanent Marker', cursive",
                         fontWeight: 400,
-                        fontSize: 'clamp(2.4rem, 6.5vw, 4.2rem)',
+                        fontSize: 'clamp(2.1rem, 6.5vw, 4.2rem)',
                         color: 'var(--sk-red)',
                         lineHeight: 1.1,
                         letterSpacing: '-0.01em',
-                        transform: 'rotate(-2deg)',
+                        transform: 'rotate(-1.5deg)',
                         transformOrigin: 'center center',
                     }}
                     initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -114,14 +114,14 @@ export default function WrapSection() {
             {/* 3. RULED-PAPER NOTE CARD                    */}
             {/* ═══════════════════════════════════════════ */}
             <MotionDiv
-                className="relative max-w-2xl mx-auto p-6 sm:p-8 rounded-[2px] mb-8 text-left"
+                className="relative max-w-2xl mx-auto p-5 sm:p-8 rounded-[2px] mb-8 text-left"
                 style={{
                     background: '#faf6ee',
                     backgroundImage:
                         'repeating-linear-gradient(transparent, transparent 27px, rgba(121, 1, 13, 0.04) 27px, rgba(121, 1, 13, 0.04) 28px)',
                     border: '1px solid rgba(121, 1, 13, 0.1)',
                     boxShadow: '2px 4px 16px rgba(0, 0, 0, 0.06)',
-                    transform: 'rotate(-1deg)',
+                    transform: 'rotate(-0.8deg)',
                     overflow: 'visible',
                 }}
                 initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -312,7 +312,7 @@ export default function WrapSection() {
             {/* 7. TWO TAPED PAPER TAGS (EMAIL & INSTAGRAM) */}
             {/* ═══════════════════════════════════════════ */}
             <MotionDiv
-                className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-12 select-none"
+                className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-12 select-none"
                 initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.45, duration: 0.5 }}
@@ -320,13 +320,14 @@ export default function WrapSection() {
                 {/* "email me" Taped Tag */}
                 <MotionA
                     href={`mailto:${contact.email}`}
-                    className="relative px-6 py-3 rounded-[2px] cursor-pointer inline-block"
+                    className="relative px-6 py-3 rounded-[2px] cursor-pointer inline-flex items-center justify-center min-h-[44px]"
                     style={{
                         background: '#faf6ee',
                         border: '1px solid rgba(121, 1, 13, 0.15)',
                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-                        transform: 'rotate(-1.5deg)',
+                        transform: 'rotate(-1deg)',
                         textDecoration: 'none',
+                        touchAction: 'manipulation',
                     }}
                     whileHover={
                         shouldReduceMotion
@@ -338,6 +339,7 @@ export default function WrapSection() {
                                   transition: { duration: 0.2 },
                               }
                     }
+                    whileTap={{ scale: 0.96 }}
                 >
                     {/* Washi tape on top edge */}
                     <div
@@ -380,13 +382,14 @@ export default function WrapSection() {
                             el.scrollIntoView({ behavior: 'smooth' });
                         }
                     }}
-                    className="relative px-6 py-3 rounded-[2px] cursor-pointer inline-block"
+                    className="relative px-6 py-3 rounded-[2px] cursor-pointer inline-flex items-center justify-center min-h-[44px]"
                     style={{
                         background: '#faf6ee',
                         border: '1px solid rgba(121, 1, 13, 0.15)',
                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
                         transform: 'rotate(-0.5deg)',
                         textDecoration: 'none',
+                        touchAction: 'manipulation',
                     }}
                     whileHover={
                         shouldReduceMotion
@@ -398,6 +401,7 @@ export default function WrapSection() {
                                   transition: { duration: 0.2 },
                               }
                     }
+                    whileTap={{ scale: 0.96 }}
                 >
                     {/* Washi tape on top edge */}
                     <div
@@ -435,13 +439,14 @@ export default function WrapSection() {
                     href={instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative px-6 py-3 rounded-[2px] cursor-pointer inline-block"
+                    className="relative px-6 py-3 rounded-[2px] cursor-pointer inline-flex items-center justify-center min-h-[44px]"
                     style={{
                         background: '#faf6ee',
                         border: '1px solid rgba(121, 1, 13, 0.15)',
                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-                        transform: 'rotate(1.5deg)',
+                        transform: 'rotate(1deg)',
                         textDecoration: 'none',
+                        touchAction: 'manipulation',
                     }}
                     whileHover={
                         shouldReduceMotion
@@ -453,6 +458,7 @@ export default function WrapSection() {
                                   transition: { duration: 0.2 },
                               }
                     }
+                    whileTap={{ scale: 0.96 }}
                 >
                     {/* Washi tape on top edge */}
                     <div
